@@ -8,12 +8,12 @@ func start(lvl : float):
 	hurt_smoke.lifetime = level
 	hurt_smoke.emitting = true
 	collision_shape_3d.disabled = false
-	
-func _on_vision_smoke_finished() -> void:
-	collision_shape_3d.disabled = true
 
 func _on_timer_timeout() -> void:
 	if hurt_smoke.emitting:
 		for i in get_overlapping_bodies():
 			if i.has_method("hit"):
 				i.hit()
+
+func _on_hurt_smoke_finished() -> void:
+	collision_shape_3d.disabled = true

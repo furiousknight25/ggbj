@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://imhwi1cf2vky"]
+
+[ext_resource type="Script" uid="uid://dcmifuxfl8a2x" path="res://scripts/door.gd" id="1_hpvv5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hpvv5"]
+size = Vector3(0.37408447, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5f452"]
+albedo_color = Color(0.17766586, 0.45696032, 0.34767285, 1)
+
+[node name="Door" type="Node3D" unique_id=660721006]
+script = ExtResource("1_hpvv5")
+
+[node name="Door" type="AnimatableBody3D" parent="." unique_id=1927434951]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door" unique_id=1568200760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029890388, 0, 0)
+shape = SubResource("BoxShape3D_hpvv5")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Door/CollisionShape3D" unique_id=2067478997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.002166748, 0, 0)
+size = Vector3(0.37841797, 1, 1)
+material = SubResource("StandardMaterial3D_5f452")
+
+[node name="FinalPoint" type="Marker3D" parent="." unique_id=1988561622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6774603, 0)

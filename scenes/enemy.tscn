@@ -1,41 +1,78 @@
 [gd_scene format=3 uid="uid://dwqoslo8bqrrf"]
 
 [ext_resource type="Script" uid="uid://xtwqr0ix748i" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://dersvwofbo5cr" path="res://scripts/body.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://btnao07oie8xe" path="res://scripts/visual_chest.gd" id="3_4ra3w"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_md0e3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_md0e3"]
 radius = 0.18332337
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7p1mj"]
-height = 0.72857666
+height = 1.5588531
 radius = 0.114746094
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_md0e3"]
+height = 4.727
+radius = 1.409
 
 [node name="Enemy" type="Node3D" unique_id=1113564389]
 script = ExtResource("1_7p1mj")
 
-[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=2079803061]
-node_a = NodePath("../feet")
-node_b = NodePath("../body")
-
 [node name="feet" type="RigidBody3D" parent="." unique_id=193748123]
 collision_layer = 0
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_md0e3")
+angular_damp = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="feet" unique_id=2074315582]
 shape = SubResource("SphereShape3D_md0e3")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="feet" unique_id=400262241]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.601593, 0)
-radius = 0.10546875
-height = 0.7567749
+[node name="CSGSphere3D" type="CSGSphere3D" parent="feet" unique_id=1180752579]
+radius = 0.17028332
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="feet" unique_id=1264298617]
 
 [node name="body" type="RigidBody3D" parent="." unique_id=331715269]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
+script = ExtResource("2_md0e3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="body" unique_id=1008987910]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5922406, -0.0073128343)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0073788, -0.0073128343)
 shape = SubResource("CylinderShape3D_7p1mj")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="body" unique_id=1180752579]
-radius = 0.17028332
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="body" unique_id=2079803061]
+node_a = NodePath("../../feet")
+node_b = NodePath("..")
+angular_limit_x/enabled = false
+angular_limit_y/enabled = false
+angular_limit_z/enabled = false
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1264298617]
+[node name="FlameThrower" type="Area3D" parent="." unique_id=1470946494]
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="FlameThrower" unique_id=148831464]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlameThrower" unique_id=1461260307]
+
+[node name="VisualChest" type="Node3D" parent="." unique_id=448476755]
+script = ExtResource("3_4ra3w")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest" unique_id=400262241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.005661, 0)
+radius = 0.10546875
+height = 1.5649109
+
+[node name="Vision" type="ShapeCast3D" parent="VisualChest" unique_id=1399689376]
+transform = Transform3D(1, 0, 0, 0, -0.014119212, 0.9999003, 0, -0.9999003, -0.014119212, 0, 1.1095989, 1.4883629)
+shape = SubResource("CylinderShape3D_md0e3")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest/Vision" unique_id=1324642860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1782547, 0.0070376396)
+radius = 0.17675781
+height = 0.6402588
+
+[node name="Timer" type="Timer" parent="." unique_id=1845134053]
+
+[connection signal="timeout" from="Timer" to="." method="_idle_timer_timeout"]

@@ -71,6 +71,7 @@ script = ExtResource("3_7psac")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=5618302]
 shape = SubResource("SphereShape3D_bj3sx")
+debug_color = Color(0.98578006, 0, 0.33501485, 0.41960785)
 
 [node name="HurtSmoke" type="CPUParticles3D" parent="HurtBox" unique_id=696793424]
 emitting = false
@@ -94,4 +95,5 @@ autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="explode"]
 [connection signal="finished" from="VisionBox/VisionSmoke" to="VisionBox" method="_on_vision_smoke_finished"]
+[connection signal="finished" from="HurtBox/HurtSmoke" to="HurtBox" method="_on_hurt_smoke_finished"]
 [connection signal="timeout" from="HurtBox/Timer" to="HurtBox" method="_on_timer_timeout"]

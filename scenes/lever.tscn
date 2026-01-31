@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dtbm4pt2xejf5"]
+
+[ext_resource type="Script" uid="uid://dqjpvmrkrppue" path="res://scripts/lever.gd" id="1_4kwec"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4kwec"]
+
+[node name="Lever" type="StaticBody3D" unique_id=246850996 groups=["interact"]]
+script = ExtResource("1_4kwec")
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=819842895]
+transform = Transform3D(0.6427877, -0.76604456, 0, 0.76604456, 0.6427877, 0, 0, 0, 1, 0, -0.3790493, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Marker3D" unique_id=29037815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.027113855, 0.4801107, 0.019073486)
+size = Vector3(0.2791748, 1, 0.27069092)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Marker3D/CSGBox3D" unique_id=658042094]
+transform = Transform3D(1.3126724, 0, 0, 0, 0.2716537, 0, 0, 0, 1.29043, 0, 0.50211245, 0)
+size = Vector3(0.2791748, 0.4482422, 0.27069092)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Marker3D" unique_id=194116636]
+transform = Transform3D(0.80306715, 0.59588856, 0, -0.59588856, 0.80306715, 0, 0, 0, 1, 0.5974504, 0.8460145, 0)
+light_color = Color(0.5890959, 0, 0.09956954, 1)
+light_energy = 4.802
+omni_range = 1.454
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1324937090]
+shape = SubResource("BoxShape3D_4kwec")

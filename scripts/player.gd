@@ -33,11 +33,20 @@ func _physics_process(delta: float) -> void:
 	velocity.y -= 9.8 * delta#gravity
 	
 	if Input.is_action_just_pressed("leftclick"):throw()
-		
+	if Input.is_action_just_pressed("rightclick"):
+		if ray_cast_3d.is_colliding():
+			var raycast_col = ray_cast_3d.get_collider()
+			print(raycast_col)
+			if raycast_col and raycast_col.is_in_group("interact"):
+				raycast_col.interact()
+	
 	move_and_slide()
 
+func interact():
+	pass
+
 func throw():
-	var smoke  :SmokeGrenade =  SMOKE_GRENADE.instantiate()
+	var smoke  : SmokeGrenade =  SMOKE_GRENADE.instantiate()
 	get_tree().get_root().add_child(smoke)
 	smoke.global_position = hand.global_position
 	smoke.init(-camera_3d.global_transform.basis.z.normalized(), {})
@@ -47,4 +56,3 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
-	
