@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://cktwt0glpfrq3"]
+
+[ext_resource type="Script" uid="uid://c2pjwib0pknwo" path="res://smoke_grenade.gd" id="1_yox7r"]
+[ext_resource type="Script" uid="uid://vrnsfwdpmc7e" path="res://scripts/hurt_box.gd" id="3_7psac"]
+[ext_resource type="Script" uid="uid://cpjbtx7fto5c" path="res://scripts/vision_box_real.gd" id="3_qojxq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fhwta"]
+radius = 0.16699219
+height = 0.58618164
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yox7r"]
+albedo_color = Color(0.5330367, 0.5330367, 0.5330367, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_yox7r"]
+material = SubResource("StandardMaterial3D_yox7r")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q3qe2"]
+radius = 1.4905338
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bj3sx"]
+radius = 1.5140328
+
+[node name="SmokeGrenade" type="RigidBody3D" unique_id=1301946315]
+collision_layer = 4
+freeze = true
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_yox7r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2060186851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08331029, 0)
+shape = SubResource("CapsuleShape3D_fhwta")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CollisionShape3D" unique_id=1679309677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052655056, 0)
+radius = 0.17333984
+height = 0.45996094
+
+[node name="Timer" type="Timer" parent="." unique_id=2097533503]
+one_shot = true
+
+[node name="VisionBox" type="StaticBody3D" parent="." unique_id=460431715]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_qojxq")
+
+[node name="VisionSmoke" type="CPUParticles3D" parent="VisionBox" unique_id=1290496597]
+emitting = false
+amount = 50
+lifetime = 5.0
+one_shot = true
+explosiveness = 0.95
+mesh = SubResource("SphereMesh_yox7r")
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, -0.1, 0)
+initial_velocity_max = 0.1
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisionBox" unique_id=1635243750]
+shape = SubResource("SphereShape3D_q3qe2")
+disabled = true
+
+[node name="HurtBox" type="Area3D" parent="." unique_id=691123836]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_7psac")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=5618302]
+shape = SubResource("SphereShape3D_bj3sx")
+
+[node name="HurtSmoke" type="CPUParticles3D" parent="HurtBox" unique_id=696793424]
+emitting = false
+amount = 50
+lifetime = 5.0
+one_shot = true
+explosiveness = 0.95
+mesh = SubResource("SphereMesh_yox7r")
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, -0.1, 0)
+initial_velocity_max = 0.1
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+
+[node name="Timer" type="Timer" parent="HurtBox" unique_id=272537476]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="explode"]
+[connection signal="finished" from="VisionBox/VisionSmoke" to="VisionBox" method="_on_vision_smoke_finished"]
+[connection signal="timeout" from="HurtBox/Timer" to="HurtBox" method="_on_timer_timeout"]
