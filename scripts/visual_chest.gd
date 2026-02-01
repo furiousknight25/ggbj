@@ -4,7 +4,7 @@ extends Node3D
 var blacked = false
 func _process(delta: float) -> void:
 	if blacked:
-		global_rotation = lerp(global_rotation, body.global_rotation, delta * 12)
+		global_rotation = body.global_rotation
 	global_position = body.global_position
 
 func face_y(why):

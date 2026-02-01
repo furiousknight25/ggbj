@@ -4,6 +4,7 @@ class_name Body extends RigidBody3D
 @export var damping: float = 1.0
 var is_ragdolled: bool = false
 @onready var visual_chest: Node3D = $"../VisualChest"
+@onready var enemy: Node3D = $".."
 
 func _integrate_forces(state):
 	# If we are ragdolling, do nothing and let gravity work
@@ -30,8 +31,7 @@ func toggle_ragdoll(active: bool):
 	if active:
 		# Optional: Give it a little push so it doesn't freeze standing up
 		apply_impulse(Vector3.RIGHT * 2.0, Vector3.UP)
-		await get_tree().create_timer(3.0).timeout
-		visual_chest.blacked = false
+		visual_chest.blacked = true
 	else:
 		visual_chest.blacked = true
 
@@ -40,3 +40,6 @@ func hit():
 
 func slip():
 	get_parent().slip()
+
+func set_chase():
+	enemy.set_state_chase()

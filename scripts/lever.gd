@@ -21,7 +21,7 @@ func close_door():
 
 func interact():
 	open_var = !open_var
-	
+	$switch.play()
 	if !open_var:
 		close_door()
 	else:

@@ -4,6 +4,10 @@
 [ext_resource type="Script" uid="uid://vrnsfwdpmc7e" path="res://scripts/hurt_box.gd" id="3_7psac"]
 [ext_resource type="Script" uid="uid://cpjbtx7fto5c" path="res://scripts/vision_box_real.gd" id="3_qojxq"]
 [ext_resource type="Script" uid="uid://c8a3togcklnwy" path="res://scripts/slip_box.gd" id="4_7psac"]
+[ext_resource type="AudioStream" uid="uid://dxqp4ukhk2r2m" path="res://assets/sounds/hurtbomb.wav" id="5_6lbvc"]
+[ext_resource type="AudioStream" uid="uid://b12aoiviuchj1" path="res://assets/sounds/normalbomb.wav" id="6_rf7vr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7psac"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7psac"]
 height = 0.29711914
@@ -46,9 +50,11 @@ material = SubResource("StandardMaterial3D_bj3sx")
 
 [node name="SmokeGrenade" type="RigidBody3D" unique_id=1301946315]
 collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_7psac")
 freeze = true
 contact_monitor = true
 max_contacts_reported = 4
+angular_damp = 4.403
 script = ExtResource("1_yox7r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2060186851]
@@ -158,6 +164,12 @@ scale_amount_max = 1.5
 [node name="Timer" type="Timer" parent="SlipBox" unique_id=1931465889]
 wait_time = 0.2
 autostart = true
+
+[node name="HurtSound" type="AudioStreamPlayer3D" parent="." unique_id=595776]
+stream = ExtResource("5_6lbvc")
+
+[node name="visionSound" type="AudioStreamPlayer3D" parent="." unique_id=853100086]
+stream = ExtResource("6_rf7vr")
 
 [connection signal="timeout" from="Timer" to="." method="explode"]
 [connection signal="finished" from="VisionBox/VisionSmoke" to="VisionBox" method="_on_vision_smoke_finished"]

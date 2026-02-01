@@ -6,8 +6,8 @@ extends Node3D
 @onready var navigation_agent_3d: NavigationAgent3D = $feet/NavigationAgent3D
 @onready var joint: Generic6DOFJoint3D = $body/Generic6DOFJoint3D
 @onready var visual_chest: Node3D = $VisualChest
-@onready var vision: ShapeCast3D = $body/Vision
-@onready var flame_thrower: Area3D = $body/Vision/FlameThrower
+@onready var vision: ShapeCast3D = $VisualChest/Vision
+@onready var flame_thrower: Area3D = $VisualChest/Vision/FlameThrower
 
 
 var health = 1
@@ -51,7 +51,11 @@ func _process(delta: float) -> void:
 			feet.apply_torque(direction.cross(Vector3.UP) * -GDB.enemy_speed)
 			#feet.apply_force(direction * 50)
 			
-			visual_chest.face_y(atan2(direction.x, direction.z))
+			var target_pos = player.global_position
+			# FLATTEN IT: Force the target height to match the chest's height
+			target_pos.y = visual_chest.global_position.y 
+			# Now look at that flattened point
+			visual_chest.look_at(target_pos, Vector3.UP)
 			
 			vision.force_shapecast_update()
 			for index in vision.get_collision_count():
@@ -64,15 +68,19 @@ func _process(delta: float) -> void:
 				set_state_idle()
 
 func set_state_chase():
-	cur_state = STATES.CHASE
+	if cur_state != STATES.CHASE and cur_state != STATES.DEAD:
+		cur_state = STATES.CHASE
+		$detected.play()
+
 func set_state_blacked():
-	cur_state = STATES.BLACKED
-	body.toggle_ragdoll(true)
-	
-	await get_tree().create_timer(GDB.blackout_time).timeout 
-	if health >= 0:
-		body.toggle_ragdoll(false)
-		set_state_idle()
+	if cur_state != STATES.BLACKED:
+		cur_state = STATES.BLACKED
+		body.toggle_ragdoll(true)
+		
+		await get_tree().create_timer(GDB.blackout_time).timeout 
+		if health >= 0:
+			body.toggle_ragdoll(false)
+			set_state_idle()
 
 func set_state_idle():
 	if cur_state == STATES.DEAD: return
@@ -81,7 +89,9 @@ func set_state_idle():
 func set_state_dead():
 	cur_state = STATES.DEAD
 	body.toggle_ragdoll(true)
-	print('dead')
+	await get_tree().create_timer(6.0).timeout
+	body.freeze = true
+	feet.freeze = true
 
 func slip():
 	if cur_state == STATES.DEAD: return

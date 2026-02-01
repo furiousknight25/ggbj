@@ -22,4 +22,9 @@ func _process(delta: float) -> void:
 		for i in cursor.get_overlapping_bodies():
 			if i.has_method("interact"):
 				i.interact(get_global_mouse_position())
-				
+	
+	if Input.is_action_just_pressed("rightclick"):
+		for i in cursor.get_overlapping_bodies():
+			if i.has_method("interact_once"):
+				i.interact_once()
+		

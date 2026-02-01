@@ -53,9 +53,10 @@ func _physics_process(delta: float) -> void:
 		var friction_dir = transform.basis * Vector3(current_friction.x, 0, current_friction.y)
 		velocity += Vector3(current_friction.x, 0, current_friction.y)
 		velocity += Vector3(movement_dir.x, 0, movement_dir.z) * GDB.speed
+	else:
+		velocity += Vector3(movement_dir.x, 0, movement_dir.z) * GDB.speed * .1
 	
-	
-	if Input.is_action_just_pressed('jump'):
+	if Input.is_action_just_pressed('jump') and is_on_floor():
 		velocity.y += jump_strength
 		
 	velocity.y -= 9.8 * delta#gravity
@@ -136,6 +137,7 @@ func flame():
 	if health <= 0:
 		dead = true
 		Director.dead_part()
+		$Death.play()
 		await get_tree().create_timer(3.0).timeout
 		get_tree().reload_current_scene()
 		

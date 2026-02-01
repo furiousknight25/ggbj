@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://dersvwofbo5cr" path="res://scripts/body.gd" id="2_md0e3"]
 [ext_resource type="Script" uid="uid://btnao07oie8xe" path="res://scripts/visual_chest.gd" id="3_4ra3w"]
 [ext_resource type="Script" uid="uid://cbuvkftwpaojj" path="res://scripts/flame_thrower.gd" id="4_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://bv1qt1uf63ajw" path="res://assets/models/enemy.glb" id="5_c4w8v"]
+[ext_resource type="AudioStream" uid="uid://d3ttdn2xqrd6m" path="res://assets/sounds/detectedbyenemy.wav" id="6_xwavj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_md0e3"]
 
@@ -37,7 +39,7 @@ offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0.8877043, 0.23343909, 0, 1, 0.70406765, 0.26158673, 0.5957221, 1, 0.80785596, 0, 0.195346, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nenq2"]
-height = 1.5223999
+height = 2.2861023
 radius = 0.7705078
 
 [node name="Enemy" type="Node3D" unique_id=1113564389]
@@ -53,11 +55,12 @@ angular_damp = 10.0
 shape = SubResource("SphereShape3D_md0e3")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="feet" unique_id=1180752579]
+visible = false
 radius = 0.17028332
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="feet" unique_id=1264298617]
 
-[node name="body" type="RigidBody3D" parent="." unique_id=331715269]
+[node name="body" type="RigidBody3D" parent="." unique_id=331715269 groups=["enemy"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("2_md0e3")
@@ -73,23 +76,34 @@ angular_limit_x/enabled = false
 angular_limit_y/enabled = false
 angular_limit_z/enabled = false
 
-[node name="Vision" type="ShapeCast3D" parent="body" unique_id=1399689376]
-transform = Transform3D(1, 0, 0, 0, -0.014119212, 0.9999003, 0, -0.9999003, -0.014119212, 0, 1.1095989, 1.4883629)
+[node name="VisualChest" type="Node3D" parent="." unique_id=448476755]
+top_level = true
+script = ExtResource("3_4ra3w")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest" unique_id=400262241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.005661, 0)
+visible = false
+radius = 0.10546875
+height = 1.5649109
+
+[node name="Vision" type="ShapeCast3D" parent="VisualChest" unique_id=1399689376 groups=["enemy"]]
+transform = Transform3D(-1, -8.741406e-08, -1.2343406e-09, 0, -0.014119212, 0.9999003, -8.742278e-08, 0.9999003, 0.014119212, 0, 1.1095989, -1.6061403)
 shape = SubResource("CylinderShape3D_md0e3")
 collision_mask = 3
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="body/Vision" unique_id=1324642860]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest/Vision" unique_id=1324642860]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1782547, 0.0070376396)
+visible = false
 radius = 0.17675781
 height = 0.6402588
 
-[node name="FlameThrower" type="Area3D" parent="body/Vision" unique_id=1470946494]
+[node name="FlameThrower" type="Area3D" parent="VisualChest/Vision" unique_id=1470946494]
 transform = Transform3D(1, 0, 0, 0, -0.014119213, -0.9999004, 0, 0.9999004, -0.014119213, 0, 1.5038812, -1.0884738)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_5uy6h")
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="body/Vision/FlameThrower" unique_id=148831464]
+[node name="CPUParticles3D" type="CPUParticles3D" parent="VisualChest/Vision/FlameThrower" unique_id=148831464]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.0780752, 0.44620776)
 emitting = false
 amount = 40
@@ -111,20 +125,17 @@ color = Color(0.8340628, 0, 0.3548594, 1)
 color_ramp = SubResource("Gradient_c4w8v")
 color_initial_ramp = SubResource("Gradient_xwavj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="body/Vision/FlameThrower" unique_id=1461260307]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.052700043, 0.77454126, 0.94636965)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisualChest/Vision/FlameThrower" unique_id=1461260307]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.052700043, 0.77454126, 1.3282208)
 shape = SubResource("CylinderShape3D_nenq2")
 debug_color = Color(0.9938918, 0, 0.237724, 0.41960785)
 
-[node name="VisualChest" type="Node3D" parent="." unique_id=448476755]
-top_level = true
-script = ExtResource("3_4ra3w")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest" unique_id=400262241]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.005661, 0)
-radius = 0.10546875
-height = 1.5649109
+[node name="enemy2" parent="VisualChest" unique_id=1978078586 instance=ExtResource("5_c4w8v")]
+transform = Transform3D(-4.727071e-09, 0, 0.108142786, 0, 0.108142786, 0, -0.108142786, 0, -4.727071e-09, 0, 0, 0)
 
 [node name="Timer" type="Timer" parent="." unique_id=1845134053]
+
+[node name="detected" type="AudioStreamPlayer3D" parent="." unique_id=302203382]
+stream = ExtResource("6_xwavj")
 
 [connection signal="timeout" from="Timer" to="." method="_idle_timer_timeout"]

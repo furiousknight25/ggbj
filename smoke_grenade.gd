@@ -34,10 +34,15 @@ func explode():
 	Vision_collision_shape_3d.disabled = false
 	if vision_level > hurt_level and vision_level > slip_level: 
 		vision_box.start(GDB.smoke_time)
+		$visionSound.play()
+		
 	if hurt_level > vision_level and hurt_level > slip_level: 
 		hurt_box.start(GDB.smoke_time)
+		$HurtSound.play()
+
 	if slip_level > hurt_level and slip_level > vision_level: 
-		slip_box.start(GDB.smoke_time)
+		hurt_box.start(GDB.smoke_time)
+		$HurtSound.play()
 
 func _on_smoke_finished() -> void:
 	await get_tree().create_timer(50.0).timeout

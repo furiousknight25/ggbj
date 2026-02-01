@@ -12,4 +12,3 @@ func _process(delta: float) -> void:
 		if ray_cast_3d.is_colliding():
 			if ray_cast_3d.get_collider() == player:
 				flame_thrower.shoot()
-				print(ray_cast_3d.get_collider())

@@ -33,6 +33,7 @@ mask=""
 player=""
 interact=""
 SprayWall=""
+enemy=""
 
 [input]
 
