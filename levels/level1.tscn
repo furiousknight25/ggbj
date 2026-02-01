@@ -429,7 +429,7 @@ size = Vector3(0.6679115, 1, 1.2817459)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.709073, 2.1923852, 0.98339796)
 
 [node name="Player" parent="NavigationRegion3D" unique_id=1240587925 instance=ExtResource("2_b3oru")]
-transform = Transform3D(-0.08538211, 0, 0.99634826, 0, 1, 0, -0.99634826, 0, -0.08538211, 26.009308, 9.070265, 5.1162515)
+transform = Transform3D(-0.08538211, 0, 0.99634826, 0, 1, 0, -0.99634826, 0, -0.08538211, 59.479824, 3.953033, 2.247994)
 
 [node name="SprayWall" parent="NavigationRegion3D" unique_id=34328576 node_paths=PackedStringArray("door") instance=ExtResource("3_b3oru")]
 transform = Transform3D(-3.0506165e-08, 0, -0.6978997, 0, 0.6978997, 0, 0.6978997, 0, -3.0506165e-08, 57.57959, 0.6910453, 2.8695374)

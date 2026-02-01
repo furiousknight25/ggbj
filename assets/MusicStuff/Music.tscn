@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://dey6d573npxbl"]
+
+[ext_resource type="Script" uid="uid://bp6vw31612dib" path="res://assets/MusicStuff/music.gd" id="1_yljg6"]
+[ext_resource type="Script" uid="uid://c7m5xys3p64l5" path="res://assets/MusicStuff/AdaptiveMusic.gd" id="2_ytcby"]
+[ext_resource type="AudioStream" uid="uid://j3omiy7f06ot" path="res://assets/sounds/maintheme.wav" id="3_2uvp3"]
+[ext_resource type="AudioStream" uid="uid://84h0xa6isjlx" path="res://assets/sounds/interactivespraypaintmusic.wav" id="4_4ued5"]
+[ext_resource type="AudioStream" uid="uid://b6u6aqbgvxqrr" path="res://assets/sounds/chilltheme.wav" id="5_n5fde"]
+[ext_resource type="AudioStream" uid="uid://cvevi15t1foyp" path="res://assets/sounds/chaseloop.wav" id="6_6sl8a"]
+[ext_resource type="AudioStream" uid="uid://c8aryau0rydfc" path="res://assets/sounds/1stbounce.wav" id="14_yx4rj"]
+
+[node name="Music" type="Node" unique_id=624151033 node_paths=PackedStringArray("song_list")]
+script = ExtResource("1_yljg6")
+song_list = {
+"glob": NodePath("Glob"),
+"openyourmind": NodePath("OpenYourMind"),
+"shop": NodePath("Shop")
+}
+
+[node name="OpenYourMind" type="Node" parent="." unique_id=121557281 node_paths=PackedStringArray("tracks")]
+script = ExtResource("2_ytcby")
+tracks = [NodePath("chop"), NodePath("perc"), NodePath("subb"), NodePath("amen")]
+
+[node name="chop" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=720356226]
+stream = ExtResource("3_2uvp3")
+volume_db = -80.0
+
+[node name="perc" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=1526506076]
+stream = ExtResource("4_4ued5")
+volume_db = -80.0
+
+[node name="subb" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=739772123]
+stream = ExtResource("5_n5fde")
+
+[node name="amen" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=983102665]
+stream = ExtResource("6_6sl8a")
+volume_db = -80.0
+
+[node name="UI" type="Control" parent="OpenYourMind" unique_id=1525925282]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="OpenYourMind/UI" unique_id=988810616]
+modulate = Color(0.8083216, 0, 0.3328494, 1)
+layout_mode = 0
+offset_left = 3.0000005
+offset_top = 63.000008
+offset_right = 16.223482
+offset_bottom = 191.4567
+scale = Vector2(0.52936125, 0.52936125)
+fill_mode = 2
+show_percentage = false
+
+[node name="Glob" type="Node" parent="." unique_id=1817301592 node_paths=PackedStringArray("tracks")]
+script = ExtResource("2_ytcby")
+tracks = [NodePath("viol"), NodePath("Drum"), NodePath("guit"), NodePath("mong")]
+bpm = 111.0
+
+[node name="viol" type="AudioStreamPlayer" parent="Glob" unique_id=180536506]
+stream = ExtResource("14_yx4rj")
+volume_db = -10.0
+
+[node name="Drum" type="AudioStreamPlayer" parent="Glob" unique_id=110381040]
+stream = ExtResource("14_yx4rj")
+volume_db = -80.0
+
+[node name="guit" type="AudioStreamPlayer" parent="Glob" unique_id=727188446]
+stream = ExtResource("14_yx4rj")
+volume_db = -80.0
+
+[node name="mong" type="AudioStreamPlayer" parent="Glob" unique_id=1091326617]
+stream = ExtResource("14_yx4rj")
+volume_db = -80.0
+
+[node name="UI" type="Control" parent="Glob" unique_id=729722987]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Glob/UI" unique_id=1741440304]
+modulate = Color(0.8083216, 0, 0.3328494, 1)
+layout_mode = 0
+offset_left = 3.0000005
+offset_top = 63.000008
+offset_right = 16.223482
+offset_bottom = 191.4567
+scale = Vector2(0.52936125, 0.52936125)
+fill_mode = 2
+show_percentage = false
+
+[node name="Shop" type="Node" parent="." unique_id=1643944777 node_paths=PackedStringArray("tracks")]
+script = ExtResource("2_ytcby")
+tracks = [NodePath("bass"), NodePath("drum"), NodePath("rhod"), NodePath("voca")]
+bpm = 111.0
+
+[node name="bass" type="AudioStreamPlayer" parent="Shop" unique_id=1656285854]
+stream = ExtResource("14_yx4rj")
+
+[node name="drum" type="AudioStreamPlayer" parent="Shop" unique_id=1399941120]
+stream = ExtResource("14_yx4rj")
+volume_db = -80.0
+
+[node name="rhod" type="AudioStreamPlayer" parent="Shop" unique_id=1835424821]
+stream = ExtResource("14_yx4rj")
+volume_db = -80.0
+
+[node name="voca" type="AudioStreamPlayer" parent="Shop" unique_id=201964046]
+stream = ExtResource("14_yx4rj")
+volume_db = -80.0
+
+[node name="UI" type="Control" parent="Shop" unique_id=718241806]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Shop/UI" unique_id=1378899927]
+modulate = Color(0.8083216, 0, 0.3328494, 1)
+layout_mode = 0
+offset_left = 3.0000005
+offset_top = 63.000008
+offset_right = 16.223482
+offset_bottom = 191.4567
+scale = Vector2(0.52936125, 0.52936125)
+fill_mode = 2
+show_percentage = false
