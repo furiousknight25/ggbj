@@ -2,13 +2,15 @@
 
 [ext_resource type="Script" uid="uid://cv3byfgdipn7p" path="res://scripts/player.gd" id="1_g18qd"]
 [ext_resource type="PackedScene" uid="uid://chchm4dg0512k" path="res://assets/models/spray.blend" id="2_hm6li"]
-[ext_resource type="Texture2D" uid="uid://ct0qecmro0j1e" path="res://assets/icon.png" id="2_n8sj0"]
 [ext_resource type="Script" uid="uid://c4hk2kl3vkj5e" path="res://scripts/ui.gd" id="2_s0ca4"]
 [ext_resource type="Script" uid="uid://boan5lyr7jpov" path="res://scripts/mixer_bod.gd" id="3_hm6li"]
 [ext_resource type="Script" uid="uid://bnxco212curki" path="res://scripts/paint_gen.gd" id="4_c6657"]
+[ext_resource type="Texture2D" uid="uid://bwb08pmgspksi" path="res://assets/pics/download_5.png" id="4_vk7aq"]
 [ext_resource type="Script" uid="uid://i3tabk5ic7tv" path="res://scripts/cursor.gd" id="6_itui2"]
 [ext_resource type="PackedScene" uid="uid://ivbhlrwj2llc" path="res://scenes/paintInBottle.tscn" id="7_ignvr"]
+[ext_resource type="Texture2D" uid="uid://di6e2o0swsbmv" path="res://assets/pics/spraycan.png" id="8_awanf"]
 [ext_resource type="PackedScene" uid="uid://bbvo0hgxatx2s" path="res://scenes/mixture.tscn" id="8_x6l86"]
+[ext_resource type="Texture2D" uid="uid://c772eff2tswos" path="res://assets/pics/box.png" id="10_awanf"]
 [ext_resource type="AudioStream" uid="uid://duxqx2y75kec6" path="res://assets/sounds/death.wav" id="10_tmpcr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwjk5"]
@@ -94,11 +96,17 @@ size_flags_vertical = 3
 script = ExtResource("2_s0ca4")
 
 [node name="Smoke Grenade" type="Panel" parent="UI" unique_id=889182355]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 7.0
 offset_top = 4.0
 offset_right = 333.0
 offset_bottom = 343.0
+
+[node name="BackPack" type="Sprite2D" parent="UI/Smoke Grenade" unique_id=1565384838]
+position = Vector2(163, 272)
+scale = Vector2(0.49420103, 0.4942011)
+texture = ExtResource("4_vk7aq")
 
 [node name="mix" type="StaticBody2D" parent="UI/Smoke Grenade" unique_id=1408560856]
 position = Vector2(-7, -4)
@@ -130,27 +138,9 @@ script = ExtResource("3_hm6li")
 shape = SubResource("CapsuleShape2D_c6657")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Smoke Grenade/mix/Mixer" unique_id=1063761292]
-scale = Vector2(0.9227851, 0.9227851)
-texture = ExtResource("2_n8sj0")
-
-[node name="TextureRect" type="TextureRect" parent="UI/Smoke Grenade/mix/Mixer/Sprite2D" unique_id=613799021]
-offset_left = -36.84498
-offset_top = -80.19202
-offset_right = 33.593956
-offset_bottom = 88.86142
-script = ExtResource("4_c6657")
-
-[node name="PaintHolder" type="VBoxContainer" parent="UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect" unique_id=642798136]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Paint" parent="UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect/PaintHolder" unique_id=950086161 instance=ExtResource("7_ignvr")]
-layout_mode = 2
-color = Color(0.79353154, 0.89953804, 1.92523e-06, 1)
+position = Vector2(15, -7)
+scale = Vector2(0.16600262, 0.16600262)
+texture = ExtResource("8_awanf")
 
 [node name="MixLayer" type="Area2D" parent="UI/Smoke Grenade/mix" unique_id=1844240672]
 position = Vector2(163, 163)
@@ -161,6 +151,24 @@ collision_mask = 2
 position = Vector2(1, 98)
 shape = SubResource("RectangleShape2D_c6657")
 
+[node name="TextureRect" type="TextureRect" parent="UI/Smoke Grenade/mix" unique_id=613799021]
+offset_left = 285.0
+offset_top = 12.0
+offset_right = 304.0
+offset_bottom = 181.05344
+script = ExtResource("4_c6657")
+
+[node name="PaintHolder" type="VBoxContainer" parent="UI/Smoke Grenade/mix/TextureRect" unique_id=642798136]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paint" parent="UI/Smoke Grenade/mix/TextureRect/PaintHolder" unique_id=950086161 instance=ExtResource("7_ignvr")]
+layout_mode = 2
+
 [node name="mixtures" type="StaticBody2D" parent="UI/Smoke Grenade" unique_id=1122440501]
 position = Vector2(1107, 91)
 
@@ -169,20 +177,33 @@ position = Vector2(-24, -265.75)
 shape = SubResource("RectangleShape2D_hm6li")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=142327075]
-position = Vector2(-3, 502.25)
+position = Vector2(6, 463)
 shape = SubResource("RectangleShape2D_ignvr")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=1398731251]
-position = Vector2(-216, 74)
+position = Vector2(-241, 76)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_epali")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=1314085647]
-position = Vector2(191, 72)
+position = Vector2(246, 73)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_epali")
 
 [node name="Mixture" parent="UI/Smoke Grenade/mixtures" unique_id=610547170 instance=ExtResource("8_x6l86")]
+position = Vector2(30, 50)
+
+[node name="Polygon2D" parent="UI/Smoke Grenade/mixtures/Mixture" index="0" unique_id=310575915]
+color = Color(0.18826851, 0.20436963, 1, 1)
+
+[node name="TextureRect" type="TextureRect" parent="UI/Smoke Grenade/mixtures" unique_id=105542742]
+z_index = -6
+offset_left = -307.0
+offset_top = -156.0
+offset_right = 220.0
+offset_bottom = 241.0
+scale = Vector2(1.074232, 1.074232)
+texture = ExtResource("10_awanf")
 
 [node name="Cursor" type="Area2D" parent="UI" unique_id=132860936]
 collision_layer = 8
@@ -202,4 +223,6 @@ position = Vector2(164, 50)
 [node name="Death" type="AudioStreamPlayer" parent="." unique_id=2037566475]
 stream = ExtResource("10_tmpcr")
 
-[connection signal="body_entered" from="UI/Smoke Grenade/mix/MixLayer" to="UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect" method="_on_mix_layer_body_entered"]
+[connection signal="body_entered" from="UI/Smoke Grenade/mix/MixLayer" to="UI/Smoke Grenade/mix/TextureRect" method="_on_mix_layer_body_entered"]
+
+[editable path="UI/Smoke Grenade/mixtures/Mixture"]

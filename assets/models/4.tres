@@ -1,0 +1,26 @@
+[gd_resource type="ArrayMesh" format=4 uid="uid://dmusml6v76acs"]
+
+[ext_resource type="Texture2D" uid="uid://c6uhc1wubpbue" path="res://assets/pics/4.png" id="1_o32gg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7ok4"]
+resource_name = "Material.002"
+cull_mode = 2
+albedo_texture = ExtResource("1_o32gg")
+roughness = 0.5
+
+[resource]
+resource_name = "paintings_Cube_003"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 0.09970045, 2, 2),
+"attribute_data": PackedByteArray("M9D9v0jw/p9I8P2/M9D+nx6w/p8z0P9/M9D+nx6w/38esPz/M9D93zPQ/P8esP3fCZD9vx6w/p8esP2/CZD+n5iH4/jr+OP46/jj+JiH4/gesP3fM9D9vzPQ/d8esP2/6/gJh/7////r+OP4hYD+////7n+Yh+P4mIcJh4WA7n/r+OP4mIcJh+v4CYeYh+P4mIcJh5iH4/iYh+P4mIcJh+v4CYeYhwmHmIcJh+v4CYfr+OP46/gJh+v4CYfr+OP4"),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGgAZABsAGAAcABkAGgAbAB0AHgAcABgAHQAbAB8AHgAfABwAHQAfAB4AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0A"),
+"material": SubResource("StandardMaterial3D_l7ok4"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(1.9948757, 2.000153, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("/////wAA//8AAP///////wAA//8AAP///////////////wAA////vwAA//////+//////////78AAAAA////vwAAAAD//1TVAAD//wAAVNUAAP////9U1QAAAAAAAFTVAAAAAAAA/7///wAA////v///AAAAAP+/AAAAAP///7///zUOyfH/P5BcNQ41Dv8///81DjUO/z+QXDUOyfH/PwAAAAAAAP///////wAA//8AAP//AAD/////AAAAAP/////J8TUO/7///wAAAAD/v///NQ41Dv+///8AAP///7//////AAD/v///NQ7J8f+////J8cnx/7//////////v5BcNQ41Dv+/kFzJ8cnx/7+QXMnxNQ7/v5BcNQ7J8f+////J8cnxAACQXDUOyfEAAP//NQ7J8QAAkFzJ8cnxAAD//8nxNQ7/P5BcyfHJ8f8////J8cnx/z+QXMnxNQ7/P///NQ41Dv5/kFzJ8TUO/n///8nxNQ7+f5BcNQ41Dv5//3//v/9//7//f/+//3//v/////////////////////9U1VTVVNVU1VTVVNVU1VTVAAD/fwAA/38AAP9/AAD/f////3////9/////f////3//v/+//7//v/+//7//v/+//38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA////f////3////9/////fwAA/38AAP9/AAD/fwAA/3//f////3////9/////f///")
+}]
+blend_shape_mode = 0

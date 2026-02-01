@@ -5,7 +5,7 @@ extends Control
 
 @onready var mixer_bod: Node2D = $"Smoke Grenade/mix/Mixer"
 
-@onready var mixer: TextureRect = $"Smoke Grenade/mix/Mixer/Sprite2D/TextureRect"
+@onready var mixer: TextureRect = $"Smoke Grenade/mix/TextureRect"
 
 var frozen = false
 

@@ -81,6 +81,7 @@ func _physics_process(delta: float) -> void:
 			var raycast_col = ray_cast_3d.get_collider()
 			if raycast_col and raycast_col.has_method("interacting"):
 				raycast_col.interacting()
+				print('asd')
 				spray_lerp = shoot
 				spray.rotation.y += randf_range(-.05,.05)
 	spray.global_position = lerp(spray.global_position, spray_lerp.global_position, delta * 25)
@@ -106,8 +107,8 @@ func _input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
 
-@onready var texture_rect: TextureRect = $"UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect"
-@onready var paint_holder: VBoxContainer = $"UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect/PaintHolder"
+@onready var texture_rect: TextureRect = $"UI/Smoke Grenade/mix/TextureRect"
+@onready var paint_holder: VBoxContainer = $"UI/Smoke Grenade/mix/TextureRect/PaintHolder"
 
 func add_color(col : Color):
 	texture_rect.add_paint(col)

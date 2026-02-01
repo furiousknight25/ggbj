@@ -19,28 +19,37 @@ var slip_level : float = 5.0
 func init(direction: Vector3, factors : Color): #TODO no 2 stage right now 
 	freeze = false
 	apply_central_impulse(direction * GDB.throwStrength)
-	apply_torque_impulse(direction * .1)
-	get_red_white_yellow_components(factors)
+	apply_torque_impulse(direction * .3)
+	get_purple_green_components(factors)
 	timer.start()
+	$CollisionShape3D/CPUParticles3D.emitting = true
 
-func get_red_white_yellow_components(color: Color):
-	vision_level = color.b
-	hurt_level = color.r - color.g
-	slip_level = color.g - color.b
-	print(vision_level, " ", hurt_level, " ", slip_level)
+var purple_level = 0.0
+var green_level = 0.0
+
+func get_purple_green_components(color: Color):
+	# Purple is defined as the presence of Red and Blue
+	purple_level = (color.r + color.b) * 0.5
 	
+	# Green is just the green channel
+	green_level = color.g
+	
+	print("Purple: ", purple_level, " Green: ", green_level)
+
 func explode():
 	freeze = true
-	Vision_collision_shape_3d.disabled = false
-	if vision_level > hurt_level and vision_level > slip_level: 
+	# Make sure this node name matches your scene tree
+	Vision_collision_shape_3d.disabled = false 
+	
+	# --- PURPLE LOGIC (Red + Blue) ---
+	if purple_level > green_level:
+		# Assuming Purple triggers the "Vision/Magic" effect
 		vision_box.start(GDB.smoke_time)
 		$visionSound.play()
 		
-	if hurt_level > vision_level and hurt_level > slip_level: 
-		hurt_box.start(GDB.smoke_time)
-		$HurtSound.play()
-
-	if slip_level > hurt_level and slip_level > vision_level: 
+	# --- GREEN LOGIC ---
+	elif green_level >= purple_level:
+		# Assuming Green triggers the "Hurt/Acid" effect
 		hurt_box.start(GDB.smoke_time)
 		$HurtSound.play()
 

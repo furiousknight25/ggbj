@@ -4,7 +4,7 @@ var mix_state = false
 var mix_level = 0.0
 var mixing = false
 @onready var player: Player = $"../../../.."
-@onready var texture_rect: TextureRect = $Sprite2D/TextureRect
+@onready var texture_rect: TextureRect = $"../TextureRect"
 
 func interact(pos : Vector2):
 	if mix_state: return
