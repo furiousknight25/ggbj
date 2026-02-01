@@ -6,9 +6,11 @@ extends Node3D
 @onready var navigation_agent_3d: NavigationAgent3D = $feet/NavigationAgent3D
 @onready var joint: Generic6DOFJoint3D = $body/Generic6DOFJoint3D
 @onready var visual_chest: Node3D = $VisualChest
+@onready var vision: ShapeCast3D = $body/Vision
+@onready var flame_thrower: Area3D = $body/Vision/FlameThrower
 
 
-var health = 10
+var health = 1
 
 func _ready() -> void:
 	health = GDB.enemy_health
@@ -17,23 +19,52 @@ enum STATES {CHASE, DEAD, IDLE, BLACKED}
 var cur_state = STATES.IDLE
 
 var idle_pos = Vector3.ZERO
-
+var time_till_bored = 3.0
+var can_shoot = true
 func _process(delta: float) -> void:
 	match cur_state:
 		STATES.IDLE:
-			pass
+			feet.angular_damp = 80.0
+			vision.force_shapecast_update()
+			if vision.is_colliding():
+				for index in vision.get_collision_count():
+					var collider = vision.get_collider(index)
+					if collider.is_in_group("player"):
+						set_state_chase()
+						break
 		STATES.DEAD:
 			pass
 		STATES.BLACKED:
 			pass
 		STATES.CHASE:
+			feet.angular_damp = 10.0
+			if can_shoot:
+				for i in flame_thrower.get_overlapping_bodies():
+					if i.has_method('flame') and can_shoot:
+						can_shoot = false
+						flame_thrower.shoot()
+						await get_tree().create_timer(GDB.cooldown).timeout
+						can_shoot = true
+						
 			navigation_agent_3d.target_position = player.global_position
 			var direction = (navigation_agent_3d.get_next_path_position() - feet.global_position).normalized()
 			feet.apply_torque(direction.cross(Vector3.UP) * -GDB.enemy_speed)
 			#feet.apply_force(direction * 50)
 			
 			visual_chest.face_y(atan2(direction.x, direction.z))
+			
+			vision.force_shapecast_update()
+			for index in vision.get_collision_count():
+				var collider = vision.get_collider(index)
+				if collider.is_in_group("player"):
+					time_till_bored = 3.0
+					break
+			time_till_bored -= delta
+			if time_till_bored <= 0:
+				set_state_idle()
 
+func set_state_chase():
+	cur_state = STATES.CHASE
 func set_state_blacked():
 	cur_state = STATES.BLACKED
 	body.toggle_ragdoll(true)
@@ -44,23 +75,33 @@ func set_state_blacked():
 		set_state_idle()
 
 func set_state_idle():
+	if cur_state == STATES.DEAD: return
 	cur_state = STATES.IDLE
-	
+
 func set_state_dead():
 	cur_state = STATES.DEAD
 	body.toggle_ragdoll(true)
+	print('dead')
+
+func slip():
+	if cur_state == STATES.DEAD: return
+	if cur_state != STATES.BLACKED:
+		set_state_blacked()
 
 func hit():
 	if cur_state == STATES.DEAD: return
+	health -= 1
 	if health <= 0:
 		set_state_dead()
 		return
-	health -= 1
+	
 
 @export var stiffness: float = 50.0
 @export var damping: float = 10.0
 var is_ragdolled: bool = false
 
+func shoot():
+	pass
 
 func _idle_timer_timeout() -> void:
 	if cur_state == STATES.IDLE:

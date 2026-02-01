@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://xtwqr0ix748i" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://dersvwofbo5cr" path="res://scripts/body.gd" id="2_md0e3"]
 [ext_resource type="Script" uid="uid://btnao07oie8xe" path="res://scripts/visual_chest.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://cbuvkftwpaojj" path="res://scripts/flame_thrower.gd" id="4_5uy6h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_md0e3"]
 
@@ -16,6 +17,28 @@ radius = 0.114746094
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_md0e3"]
 height = 4.727
 radius = 1.409
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5uy6h"]
+transparency = 1
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.5580138, 0, 0.054599985, 1)
+emission_energy_multiplier = 1.37
+
+[sub_resource type="PrismMesh" id="PrismMesh_5uy6h"]
+material = SubResource("StandardMaterial3D_5uy6h")
+
+[sub_resource type="Gradient" id="Gradient_c4w8v"]
+offsets = PackedFloat32Array(0, 0.97530866)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_xwavj"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.8877043, 0.23343909, 0, 1, 0.70406765, 0.26158673, 0.5957221, 1, 0.80785596, 0, 0.195346, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nenq2"]
+height = 1.5223999
+radius = 0.7705078
 
 [node name="Enemy" type="Node3D" unique_id=1113564389]
 script = ExtResource("1_7p1mj")
@@ -50,28 +73,57 @@ angular_limit_x/enabled = false
 angular_limit_y/enabled = false
 angular_limit_z/enabled = false
 
-[node name="FlameThrower" type="Area3D" parent="." unique_id=1470946494]
+[node name="Vision" type="ShapeCast3D" parent="body" unique_id=1399689376]
+transform = Transform3D(1, 0, 0, 0, -0.014119212, 0.9999003, 0, -0.9999003, -0.014119212, 0, 1.1095989, 1.4883629)
+shape = SubResource("CylinderShape3D_md0e3")
+collision_mask = 3
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="FlameThrower" unique_id=148831464]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="body/Vision" unique_id=1324642860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1782547, 0.0070376396)
+radius = 0.17675781
+height = 0.6402588
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FlameThrower" unique_id=1461260307]
+[node name="FlameThrower" type="Area3D" parent="body/Vision" unique_id=1470946494]
+transform = Transform3D(1, 0, 0, 0, -0.014119213, -0.9999004, 0, 0.9999004, -0.014119213, 0, 1.5038812, -1.0884738)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_5uy6h")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="body/Vision/FlameThrower" unique_id=148831464]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.0780752, 0.44620776)
+emitting = false
+amount = 40
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.52
+mesh = SubResource("PrismMesh_5uy6h")
+emission_shape = 3
+emission_box_extents = Vector3(0.105, 0.505, 0.395)
+gravity = Vector3(0, 0.2, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 5.0
+radial_accel_min = -2.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color = Color(0.8340628, 0, 0.3548594, 1)
+color_ramp = SubResource("Gradient_c4w8v")
+color_initial_ramp = SubResource("Gradient_xwavj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="body/Vision/FlameThrower" unique_id=1461260307]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.052700043, 0.77454126, 0.94636965)
+shape = SubResource("CylinderShape3D_nenq2")
+debug_color = Color(0.9938918, 0, 0.237724, 0.41960785)
 
 [node name="VisualChest" type="Node3D" parent="." unique_id=448476755]
+top_level = true
 script = ExtResource("3_4ra3w")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest" unique_id=400262241]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.005661, 0)
 radius = 0.10546875
 height = 1.5649109
-
-[node name="Vision" type="ShapeCast3D" parent="VisualChest" unique_id=1399689376]
-transform = Transform3D(1, 0, 0, 0, -0.014119212, 0.9999003, 0, -0.9999003, -0.014119212, 0, 1.1095989, 1.4883629)
-shape = SubResource("CylinderShape3D_md0e3")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VisualChest/Vision" unique_id=1324642860]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1782547, 0.0070376396)
-radius = 0.17675781
-height = 0.6402588
 
 [node name="Timer" type="Timer" parent="." unique_id=1845134053]
 

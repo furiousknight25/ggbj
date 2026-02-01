@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dqjpvmrkrppue" path="res://scripts/lever.gd" id="1_4kwec"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kwec"]
+size = Vector3(0.55200195, 0.5908203, 0.5452881)
 
 [node name="Lever" type="StaticBody3D" unique_id=246850996 groups=["interact"]]
 script = ExtResource("1_4kwec")
@@ -11,7 +12,7 @@ script = ExtResource("1_4kwec")
 transform = Transform3D(0.6427877, -0.76604456, 0, 0.76604456, 0.6427877, 0, 0, 0, 1, 0, -0.3790493, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Marker3D" unique_id=29037815]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.027113855, 0.4801107, 0.019073486)
+transform = Transform3D(0.54313195, 0, 0, 0, 0.54313195, 0, 0, 0, 0.54313195, 0.0058034956, 0.2626806, 0.019073486)
 size = Vector3(0.2791748, 1, 0.27069092)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Marker3D/CSGBox3D" unique_id=658042094]
@@ -25,4 +26,5 @@ light_energy = 4.802
 omni_range = 1.454
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1324937090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.095825195, -0.20458984, 0.18035889)
 shape = SubResource("BoxShape3D_4kwec")

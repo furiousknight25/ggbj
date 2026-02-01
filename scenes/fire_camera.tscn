@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://jgho4qhkucs2"]
+
+[ext_resource type="Script" uid="uid://btldwkidnpq8p" path="res://scripts/fire_camera.gd" id="1_ufmol"]
+[ext_resource type="Script" uid="uid://cbuvkftwpaojj" path="res://scripts/flame_thrower.gd" id="2_q14m8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ra3w"]
+transparency = 1
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(0.5580138, 0, 0.054599985, 1)
+emission_energy_multiplier = 1.37
+
+[sub_resource type="PrismMesh" id="PrismMesh_d0etq"]
+material = SubResource("StandardMaterial3D_4ra3w")
+
+[sub_resource type="Gradient" id="Gradient_2dof3"]
+offsets = PackedFloat32Array(0, 0.97530866)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_o3p3e"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.8877043, 0.23343909, 0, 1, 0.70406765, 0.26158673, 0.5957221, 1, 0.80785596, 0, 0.195346, 1)
+
+[node name="Fire" type="Node3D" unique_id=1472658006]
+script = ExtResource("1_ufmol")
+
+[node name="Cam" type="CSGBox3D" parent="." unique_id=500551123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34075928, 0.22729492, -0.20434642)
+size = Vector3(0.31848145, 0.54541016, 0.94854736)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Cam" unique_id=1633663166]
+transform = Transform3D(0.29826134, 0, 0, 0, 0.29826134, 0, 0, 0, 0.29826134, 0.019769996, 0.022309527, -0.5720458)
+size = Vector3(0.52075195, 0.48345947, 1.1174011)
+
+[node name="FlameThrower" type="Area3D" parent="Cam" unique_id=581360721]
+transform = Transform3D(1, 0, 0, 0, -0.014119213, -0.9999004, 0, 0.9999004, -0.014119213, -0.05954182, 0.31525445, -1.6267223)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_q14m8")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Cam/FlameThrower" unique_id=1004948115]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.0780752, 0.44620776)
+emitting = false
+amount = 40
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.52
+mesh = SubResource("PrismMesh_d0etq")
+emission_shape = 3
+emission_box_extents = Vector3(0.105, 0.505, 0.395)
+gravity = Vector3(0, 0.2, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 5.0
+radial_accel_min = -2.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color = Color(0.8340628, 0, 0.3548594, 1)
+color_ramp = SubResource("Gradient_2dof3")
+color_initial_ramp = SubResource("Gradient_o3p3e")
+
+[node name="RayCast3D" type="RayCast3D" parent="Cam" unique_id=1308923332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5202551)
+target_position = Vector3(0, 0, -15)
+collision_mask = 11
+
+[node name="Area3D" type="Area3D" parent="." unique_id=42501078]
+collision_layer = 0
+collision_mask = 2

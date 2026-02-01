@@ -4,6 +4,7 @@ var level = 0.0
 @onready var hurt_smoke: CPUParticles3D = $HurtSmoke
 
 func start(lvl : float):
+	
 	level = lvl
 	hurt_smoke.lifetime = level
 	hurt_smoke.emitting = true

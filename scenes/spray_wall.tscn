@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://clhf4il2tqdac"]
+
+[ext_resource type="Script" uid="uid://k2110io3bdke" path="res://scripts/stat.gd" id="1_vrdpo"]
+
+[node name="SprayWall" type="StaticBody3D" unique_id=34328576 groups=["SprayWall"]]
+script = ExtResource("1_vrdpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1878461872 groups=["interact"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0053100586, 0.6400757, -0.26953125)
+
+[node name="Timer" type="Timer" parent="." unique_id=535407756]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

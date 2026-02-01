@@ -1,31 +1,42 @@
 [gd_scene format=3 uid="uid://cn2nsmjmkrbks"]
 
 [ext_resource type="Script" uid="uid://cv3byfgdipn7p" path="res://scripts/player.gd" id="1_g18qd"]
+[ext_resource type="PackedScene" uid="uid://chchm4dg0512k" path="res://assets/models/spray.blend" id="2_hm6li"]
 [ext_resource type="Texture2D" uid="uid://ct0qecmro0j1e" path="res://assets/icon.png" id="2_n8sj0"]
 [ext_resource type="Script" uid="uid://c4hk2kl3vkj5e" path="res://scripts/ui.gd" id="2_s0ca4"]
-[ext_resource type="PackedScene" uid="uid://bbvo0hgxatx2s" path="res://scenes/mixture.tscn" id="4_epali"]
+[ext_resource type="Script" uid="uid://boan5lyr7jpov" path="res://scripts/mixer_bod.gd" id="3_hm6li"]
+[ext_resource type="Script" uid="uid://bnxco212curki" path="res://scripts/paint_gen.gd" id="4_c6657"]
+[ext_resource type="Script" uid="uid://i3tabk5ic7tv" path="res://scripts/cursor.gd" id="6_itui2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwjk5"]
+radius = 0.34521484
 height = 1.0419922
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g1ecg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0ca4"]
-size = Vector2(203.5, 32.5)
+size = Vector2(203.5, 49)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epali"]
-size = Vector2(342.625, 82.499985)
+size = Vector2(342.625, 143.25)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c6657"]
 radius = 44.0
 height = 166.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6657"]
-size = Vector2(316, 343)
+size = Vector2(189, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hm6li"]
+size = Vector2(430, 440.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ignvr"]
+size = Vector2(420, 537.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_epali"]
 
 [node name="Player" type="CharacterBody3D" unique_id=1240587925 groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_g18qd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=369986665]
@@ -41,6 +52,9 @@ mesh = SubResource("CapsuleMesh_g1ecg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64104, 0)
 fov = 80.0
 
+[node name="spray" parent="Camera3D" unique_id=2016465519 instance=ExtResource("2_hm6li")]
+transform = Transform3D(-0.12514287, 1.5892198e-15, 1.8896051e-08, -7.3532087e-09, 0.115278944, -0.0486981, -1.7406636e-08, -0.0486981, -0.115278944, 0.44090378, -0.54883087, -0.26448578)
+
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=935598511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0066599846, 0)
 target_position = Vector3(0, 0, -5)
@@ -48,8 +62,17 @@ collision_mask = 9
 collide_with_areas = true
 debug_shape_thickness = 1
 
+[node name="Hold" type="Marker3D" parent="Camera3D" unique_id=1265386443]
+transform = Transform3D(-1, 0, -8.742278e-08, 2.6057059e-08, 0.95454776, -0.29805803, 8.3449216e-08, -0.29805803, -0.95454776, 0.45639068, -0.5116388, -0.4133594)
+
+[node name="Gone" type="Marker3D" parent="Camera3D" unique_id=725364921]
+transform = Transform3D(1, 0, 0, 0, 0.4452604, 0.8954011, 0, -0.8954011, 0.4452604, 0.45639068, -0.9436863, 0.1336425)
+
+[node name="Shoot" type="Marker3D" parent="Camera3D" unique_id=1254703258]
+transform = Transform3D(-0.91803163, 0, -0.39650717, 0.14981659, 0.9258706, -0.3468698, 0.36711434, -0.3778408, -0.8499785, 0.16003448, -0.6915858, -0.3634504)
+
 [node name="Hand" type="Marker3D" parent="." unique_id=2117977322]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46541786, 0.5814272, -0.68283695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0255799, 0.5814272, -0.021744639)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Hand" unique_id=877692671]
 size = Vector3(0.2833252, 0.63391113, 0.22558594)
@@ -59,6 +82,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -969.0
+offset_bottom = -969.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -72,29 +97,31 @@ offset_top = 4.0
 offset_right = 333.0
 offset_bottom = 343.0
 
-[node name="mix" type="AnimatableBody2D" parent="UI/Smoke Grenade" unique_id=78828937]
+[node name="mix" type="StaticBody2D" parent="UI/Smoke Grenade" unique_id=1408560856]
 position = Vector2(-7, -4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Smoke Grenade/mix" unique_id=1910814899]
-position = Vector2(159.25, 17.75)
+position = Vector2(161, -18)
 shape = SubResource("RectangleShape2D_s0ca4")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="UI/Smoke Grenade/mix" unique_id=2013178147]
-position = Vector2(167, 322)
+position = Vector2(167, 337.5)
 shape = SubResource("RectangleShape2D_s0ca4")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="UI/Smoke Grenade/mix" unique_id=1359388624]
-position = Vector2(32.000004, 172.6875)
+position = Vector2(-9, 175)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_epali")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="UI/Smoke Grenade/mix" unique_id=24990095]
-position = Vector2(302, 168)
+position = Vector2(343, 170)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_epali")
 
-[node name="Mixer" type="RigidBody2D" parent="UI/Smoke Grenade/mix" unique_id=122931758]
+[node name="Mixer" type="CharacterBody2D" parent="UI/Smoke Grenade/mix" unique_id=1869756323 groups=["interact"]]
 position = Vector2(163, 163)
+collision_layer = 4
+script = ExtResource("3_hm6li")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Smoke Grenade/mix/Mixer" unique_id=796374572]
 shape = SubResource("CapsuleShape2D_c6657")
@@ -103,41 +130,55 @@ shape = SubResource("CapsuleShape2D_c6657")
 scale = Vector2(0.9227851, 0.9227851)
 texture = ExtResource("2_n8sj0")
 
+[node name="TextureRect" type="TextureRect" parent="UI/Smoke Grenade/mix/Mixer/Sprite2D" unique_id=613799021]
+offset_left = -36.84498
+offset_top = -80.19202
+offset_right = 33.593956
+offset_bottom = 88.86142
+script = ExtResource("4_c6657")
+
+[node name="PaintHolder" type="VBoxContainer" parent="UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect" unique_id=642798136]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="MixLayer" type="Area2D" parent="UI/Smoke Grenade/mix" unique_id=1844240672]
-visible = false
 position = Vector2(163, 163)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Smoke Grenade/mix/MixLayer" unique_id=1294479636]
-position = Vector2(4, 7.5)
+position = Vector2(1, 98)
 shape = SubResource("RectangleShape2D_c6657")
 
-[node name="mixtures" type="StaticBody2D" parent="UI/Smoke Grenade" unique_id=1862775792]
-position = Vector2(930, 0)
+[node name="mixtures" type="StaticBody2D" parent="UI/Smoke Grenade" unique_id=1122440501]
+position = Vector2(1107, 91)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=953220328]
-position = Vector2(159.25, 17.75)
-shape = SubResource("RectangleShape2D_s0ca4")
+position = Vector2(-24, -265.75)
+shape = SubResource("RectangleShape2D_hm6li")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=142327075]
-position = Vector2(167, 322)
-shape = SubResource("RectangleShape2D_s0ca4")
+position = Vector2(-3, 502.25)
+shape = SubResource("RectangleShape2D_ignvr")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=1398731251]
-position = Vector2(32.000004, 172.6875)
+position = Vector2(-216, 74)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_epali")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=1314085647]
-position = Vector2(302, 168)
+position = Vector2(191, 72)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_epali")
-
-[node name="Mixture" parent="UI/Smoke Grenade/mixtures" unique_id=283933754 instance=ExtResource("4_epali")]
-position = Vector2(-168, 131)
 
 [node name="Cursor" type="Area2D" parent="UI" unique_id=132860936]
 collision_layer = 8
 collision_mask = 6
+script = ExtResource("6_itui2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Cursor" unique_id=406427563]
 shape = SubResource("CircleShape2D_epali")
@@ -145,3 +186,8 @@ shape = SubResource("CircleShape2D_epali")
 [node name="Polygon2D" type="Polygon2D" parent="UI/Cursor" unique_id=581841004]
 color = Color(2.8878452e-07, 0.92667454, 0.600324, 1)
 polygon = PackedVector2Array(0, -10, 7, -8, 10, -1, 8, 7, 0, 10, -7, 7, -10, -1, -6, -8)
+
+[node name="PaintFinalLocation" type="Marker2D" parent="UI" unique_id=1581444937]
+position = Vector2(164, 50)
+
+[connection signal="body_entered" from="UI/Smoke Grenade/mix/MixLayer" to="UI/Smoke Grenade/mix/Mixer/Sprite2D/TextureRect" method="_on_mix_layer_body_entered"]

@@ -23,4 +23,4 @@ size = Vector3(0.37841797, 1, 1)
 material = SubResource("StandardMaterial3D_5f452")
 
 [node name="FinalPoint" type="Marker3D" parent="." unique_id=1988561622]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6774603, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4592128, 0)

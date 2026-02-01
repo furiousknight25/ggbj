@@ -3,6 +3,7 @@ class_name Body extends RigidBody3D
 @export var stiffness: float = 50.0
 @export var damping: float = 1.0
 var is_ragdolled: bool = false
+@onready var visual_chest: Node3D = $"../VisualChest"
 
 func _integrate_forces(state):
 	# If we are ragdolling, do nothing and let gravity work
@@ -29,3 +30,13 @@ func toggle_ragdoll(active: bool):
 	if active:
 		# Optional: Give it a little push so it doesn't freeze standing up
 		apply_impulse(Vector3.RIGHT * 2.0, Vector3.UP)
+		await get_tree().create_timer(3.0).timeout
+		visual_chest.blacked = false
+	else:
+		visual_chest.blacked = true
+
+func hit():
+	get_parent().hit()
+
+func slip():
+	get_parent().slip()

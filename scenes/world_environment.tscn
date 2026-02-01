@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cv545sfreymi8"]
+
+[ext_resource type="Script" uid="uid://b1tfytxd4vbt" path="res://scripts/world_environment.gd" id="1_dq0xd"]
+[ext_resource type="PackedScene" uid="uid://cdgm8vqq0k3oi" path="res://scenes/dead_part.tscn" id="2_dq0xd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_37kl0"]
+
+[sub_resource type="Sky" id="Sky_8uh7m"]
+sky_material = SubResource("ProceduralSkyMaterial_37kl0")
+
+[sub_resource type="Environment" id="Environment_6uqi0"]
+background_mode = 2
+sky = SubResource("Sky_8uh7m")
+glow_enabled = true
+glow_intensity = 1.45
+glow_bloom = 0.1
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 1.32
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1015
+
+[node name="WorldEnvironment" type="WorldEnvironment" unique_id=340292191]
+environment = SubResource("Environment_6uqi0")
+script = ExtResource("1_dq0xd")
+
+[node name="Dead" parent="." unique_id=1418361425 instance=ExtResource("2_dq0xd")]

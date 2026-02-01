@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cdgm8vqq0k3oi"]
+
+[ext_resource type="Texture2D" uid="uid://c1by0drfqpxnt" path="res://assets/spraycircleyellow.png" id="1_wnqdy"]
+
+[sub_resource type="Gradient" id="Gradient_qdl06"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[node name="Dead" type="CPUParticles2D" unique_id=1418361425]
+position = Vector2(661, 2251)
+emitting = false
+amount = 40
+texture = ExtResource("1_wnqdy")
+lifetime = 10.0
+one_shot = true
+explosiveness = 0.76
+emission_shape = 3
+emission_rect_extents = Vector2(1400, 1)
+gravity = Vector2(0, -980)
+scale_amount_min = 19.8
+scale_amount_max = 59.41
+color = Color(0.12955844, 0.12955847, 0.12955844, 1)
+color_ramp = SubResource("Gradient_qdl06")
