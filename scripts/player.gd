@@ -81,7 +81,6 @@ func _physics_process(delta: float) -> void:
 			var raycast_col = ray_cast_3d.get_collider()
 			if raycast_col and raycast_col.has_method("interacting"):
 				raycast_col.interacting()
-				print('asd')
 				spray_lerp = shoot
 				spray.rotation.y += randf_range(-.05,.05)
 	spray.global_position = lerp(spray.global_position, spray_lerp.global_position, delta * 25)
@@ -131,7 +130,9 @@ func add_mixture(col : Color):
 func give_spray():
 	if ray_cast_3d.is_colliding():
 		return ray_cast_3d.get_collision_point() 
-		
+func give_normal():
+	if ray_cast_3d.is_colliding():
+		return ray_cast_3d.get_collision_normal()
 
 func flame():
 	health -= 1

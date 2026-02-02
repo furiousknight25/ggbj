@@ -137,5 +137,6 @@ transform = Transform3D(-4.727071e-09, 0, 0.108142786, 0, 0.108142786, 0, -0.108
 
 [node name="detected" type="AudioStreamPlayer3D" parent="." unique_id=302203382]
 stream = ExtResource("6_xwavj")
+volume_db = -15.0
 
 [connection signal="timeout" from="Timer" to="." method="_idle_timer_timeout"]

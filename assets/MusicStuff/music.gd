@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func the_beg():
 	current_song.start()
+
 func stop():current_song.stop()
 	
 func switch_song(song : String):
@@ -35,6 +36,7 @@ func switch_song(song : String):
 
 func request_new(req : String):
 	current_song.request(req)
+
 func transition_to_shop():
 	var current_time = current_song.master_track.get_playback_position()
 	var measure_duration = 4.0 * current_song.beat_duration * 4 * 2

@@ -1,10 +1,21 @@
-[gd_scene format=3 uid="uid://cqs5shl1pay48"]
+[gd_scene format=3 uid="uid://c64l43vygdgj8"]
 
-[ext_resource type="Script" uid="uid://w072ynj4yiqo" path="res://scripts/check_point.gd" id="1_od5km"]
+[ext_resource type="Script" uid="uid://bxueks5nlxels" path="res://scenes/CheckPoint.gd" id="1_1j2br"]
+[ext_resource type="AudioStream" uid="uid://csf5g5y7ymwtk" path="res://scenes/checkpoint.wav" id="2_1lxou"]
 
-[node name="CheckPoint" type="Area3D" unique_id=1539410134]
-script = ExtResource("1_od5km")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3jvl"]
 
-[node name="Marker3D" type="Marker3D" parent="." unique_id=935324976]
+[node name="CheckPoint" type="Node2D" unique_id=547896525]
+script = ExtResource("1_1j2br")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="HitBox" type="Area2D" parent="." unique_id=184922958]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1032384088]
+shape = SubResource("RectangleShape2D_s3jvl")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1937679909]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1223464254]
+stream = ExtResource("2_1lxou")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bnxco212curki" path="res://scripts/paint_gen.gd" id="4_c6657"]
 [ext_resource type="Texture2D" uid="uid://bwb08pmgspksi" path="res://assets/pics/download_5.png" id="4_vk7aq"]
 [ext_resource type="Script" uid="uid://i3tabk5ic7tv" path="res://scripts/cursor.gd" id="6_itui2"]
+[ext_resource type="AudioStream" uid="uid://c11w7exk6yvxt" path="res://assets/sounds/interactiveshaking.wav" id="7_7lmeg"]
 [ext_resource type="PackedScene" uid="uid://ivbhlrwj2llc" path="res://scenes/paintInBottle.tscn" id="7_ignvr"]
 [ext_resource type="Texture2D" uid="uid://di6e2o0swsbmv" path="res://assets/pics/spraycan.png" id="8_awanf"]
 [ext_resource type="PackedScene" uid="uid://bbvo0hgxatx2s" path="res://scenes/mixture.tscn" id="8_x6l86"]
@@ -142,6 +143,10 @@ position = Vector2(15, -7)
 scale = Vector2(0.16600262, 0.16600262)
 texture = ExtResource("8_awanf")
 
+[node name="MixingSFX" type="AudioStreamPlayer" parent="UI/Smoke Grenade/mix/Mixer" unique_id=719795379]
+stream = ExtResource("7_7lmeg")
+volume_db = -20.378
+
 [node name="MixLayer" type="Area2D" parent="UI/Smoke Grenade/mix" unique_id=1844240672]
 position = Vector2(163, 163)
 collision_layer = 0
@@ -222,6 +227,7 @@ position = Vector2(164, 50)
 
 [node name="Death" type="AudioStreamPlayer" parent="." unique_id=2037566475]
 stream = ExtResource("10_tmpcr")
+volume_db = -8.0
 
 [connection signal="body_entered" from="UI/Smoke Grenade/mix/MixLayer" to="UI/Smoke Grenade/mix/TextureRect" method="_on_mix_layer_body_entered"]
 

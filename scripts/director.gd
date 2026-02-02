@@ -6,6 +6,9 @@ var textures = []
 const DEAD_PART = preload("res://scenes/dead_part.tscn")
 
 var checkPoint = Vector3.ZERO
+
+func _ready() -> void:
+	print(checkPoint)
 func _process(_delta):
 	
 	if Input.is_action_just_pressed("exit"):

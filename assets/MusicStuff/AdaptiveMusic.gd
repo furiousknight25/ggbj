@@ -2,31 +2,39 @@ extends Node
 class_name AdaptiveMusic
 
 @export var tracks : Array[AudioStreamPlayer]
-@export var bpm: float = 89.0
+@export var bpm: float = 87.0
 
 @onready var progress_bar: ProgressBar = $UI/ProgressBar
 @onready var master_track = tracks[3]
 
 var beat_duration: float # per second number
 
+
+@onready var chop: AudioStreamPlayer = $chop
+@onready var perc: AudioStreamPlayer = $perc
+@onready var subb: AudioStreamPlayer = $subb
+@onready var amen: AudioStreamPlayer = $amen
+
 func _ready() -> void:
-	beat_duration = 89.0 /bpm
+	beat_duration = 87.0 /bpm
 
 func _process(_delta: float) -> void:
+	if name == "OpenYourMind":
+		pass
+		#print("one: ", chop.get_playback_position(), "two: ", perc.get_playback_position(), "three: ", subb.get_playback_position(), "four: ", amen.get_playback_position())
+	
 	if !master_track.playing: return
 	
 	if Input.is_action_just_pressed("1"):
-		increase_volume(0, -10.0, .01)
+		request('main')
 	if Input.is_action_just_pressed("2"):
-		increase_volume(1, -10.0, .01)
-		increase_volume(0, -80.0, .5)
-		increase_volume(2, -80.0, .5)
-		increase_volume(3, -80.0, .5)
+		request('bosa')
+		#increase_volume(1, -10.0, .01)
+		#increase_volume(0, -80.0, .5)
+		#increase_volume(2, -80.0, .5)
+		#increase_volume(3, -80.0, .5)
 	if Input.is_action_just_pressed("3"):
-		increase_volume(2, -10.0, .01)
-		increase_volume(0, -80.0, .5)
-		increase_volume(1, -80.0, .5)
-		increase_volume(3, -80.0, .5)
+		request('chill')
 	if Input.is_action_just_pressed("4"):
 		increase_volume(3, -10.0, .01)
 		increase_volume(0, -80.0, .5)
@@ -39,24 +47,24 @@ func _process(_delta: float) -> void:
 		increase_volume(3, -80.0, .5)
 
 func request(request : String):
-	print(request)
 	if !master_track.playing: return
 	match request:
 		'chill':
-			increase_volume(1, -10.0, .01)
+			increase_volume(2, -20.0, .01)
+			increase_volume(1, -80.0, .5)
 			increase_volume(0, -80.0, .5)
-			increase_volume(2, -80.0, .5)
 			increase_volume(3, -80.0, .5)
 		'main':
-			increase_volume(0, -10.0, .01)
+			increase_volume(0, -20.0, .01)
 			increase_volume(1, -80.0, .5)
 			increase_volume(2, -80.0, .5)
 			increase_volume(3, -80.0, .5)
 		'bosa':
-			increase_volume(2, -10.0, .01)
+			increase_volume(1, -20.0, .01)
 			increase_volume(0, -80.0, .5)
-			increase_volume(1, -80.0, .5)
+			increase_volume(2, -80.0, .5)
 			increase_volume(3, -80.0, .5)
+
 func start(time_to_start : float = 0.0):
 	for i in tracks:
 		i.play(time_to_start)
@@ -83,7 +91,7 @@ func increase_volume(idx: int, volume : float, fade_duration: float):
 		return
 	
 	var current_time = master_track.get_playback_position()
-	var measure_duration = beat_duration
+	var measure_duration = beat_duration * 2
 	var bars = 4.0 * beat_duration
 	var time_untill_sync = measure_duration - fmod(current_time, measure_duration)
 	

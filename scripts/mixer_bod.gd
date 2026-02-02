@@ -1,15 +1,19 @@
-extends CharacterBody2D
+class_name MixerBod extends CharacterBody2D
 
 var mix_state = false
 var mix_level = 0.0
 var mixing = false
 @onready var player: Player = $"../../../.."
 @onready var texture_rect: TextureRect = $"../TextureRect"
+@onready var mixing_sfx: AudioStreamPlayer = $MixingSFX
 
 func interact(pos : Vector2):
 	if mix_state: return
 	velocity += pos - global_position
 	rotation += randf_range(-.1,.1)
+	if !mixing_sfx.playing:
+		mixing_sfx.play()
+	
 	if mix_level > 3.0:
 		mix_state = true
 		player.current_paint = texture_rect.get_mix()
@@ -19,9 +23,13 @@ func interact(pos : Vector2):
 	mixing = true
 
 func _process(delta: float) -> void:
+	
 	if mixing: 
 		mix_level += delta
 		mixing = false
+	
+	#if mix_level != mix_level - delta:
+		#mixing_sfx.stop()
 	
 	rotation = lerp(rotation, 0.0, delta * 2)
 	

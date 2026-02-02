@@ -22,7 +22,7 @@ tracks = [NodePath("chop"), NodePath("perc"), NodePath("subb"), NodePath("amen")
 
 [node name="chop" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=720356226]
 stream = ExtResource("3_2uvp3")
-volume_db = -80.0
+volume_db = -20.0
 
 [node name="perc" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=1526506076]
 stream = ExtResource("4_4ued5")
@@ -30,6 +30,7 @@ volume_db = -80.0
 
 [node name="subb" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=739772123]
 stream = ExtResource("5_n5fde")
+volume_db = -80.0
 
 [node name="amen" type="AudioStreamPlayer" parent="OpenYourMind" unique_id=983102665]
 stream = ExtResource("6_6sl8a")

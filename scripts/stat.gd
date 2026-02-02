@@ -24,10 +24,13 @@ func _on_timer_timeout() -> void:
 		if paint_meter > 10 and done == false:
 			done = true
 			door.open()
-			Music.request_new('chill')
+			Music.request_new('main')
+			$sing.play()
 		var yp = YELLOWSPRAYPOINT.instantiate()
 		add_child(yp)
 		
 		if yp and player.give_spray():
 			yp.global_position = player.give_spray()
+			#yp.rotation = player.give_normal()
+			
 	can_paint = false

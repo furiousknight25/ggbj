@@ -1,4 +1,4 @@
-extends TextureRect
+class_name PaintGen extends TextureRect
 
 const PAINT_IN_BOTTLE = preload("res://scenes/paintInBottle.tscn")
 @onready var paint_holder: VBoxContainer = $PaintHolder
