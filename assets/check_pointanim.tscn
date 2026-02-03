@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://nff5cwu3i30w"]
+
+[ext_resource type="FontFile" uid="uid://cxarvlhal8vin" path="res://raw assets/fonts/dogica.ttf" id="1_rjssc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dw8s"]
+bg_color = Color(0.17469, 0.183773, 0.167185, 1)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.111197, 0.111197, 0.111197, 1)
+corner_radius_top_right = 1
+shadow_size = 1
+
+[sub_resource type="Animation" id="Animation_dmnf4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-43, -150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_12771"]
+resource_name = "checkpoint"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(0.329877, 4.14106, 1),
+"update": 0,
+"values": [Vector2(-43, -150), Vector2(-43, -79), Vector2(-43, -150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.435275, 2.37841, 1),
+"update": 0,
+"values": [-0.118103, 0.10022, -0.0677381]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xulo"]
+_data = {
+&"RESET": SubResource("Animation_dmnf4"),
+&"checkpoint": SubResource("Animation_12771")
+}
+
+[node name="CheckPoint" type="RichTextLabel" unique_id=450053326]
+z_index = 100
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = -150.0
+offset_right = 52.0
+offset_bottom = -117.0
+grow_horizontal = 2
+pivot_offset = Vector2(40, -1)
+theme_override_colors/default_color = Color(0.462917, 0.65909, 0.584508, 1)
+theme_override_fonts/normal_font = ExtResource("1_rjssc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4dw8s")
+text = "CheckPoint"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=521179976]
+libraries/ = SubResource("AnimationLibrary_0xulo")

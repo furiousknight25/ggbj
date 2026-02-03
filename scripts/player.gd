@@ -22,10 +22,15 @@ var dead = false
 @onready var shoot: Marker3D = $Camera3D/Shoot
 @onready var spray_lerp = gone
 
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	if Director.checkPoint != Vector3.ZERO:
 		global_position = Director.checkPoint
+	Director.connect("checkpoint", check_anim)
+func check_anim():
+	$Node2D/CheckPoint/AnimationPlayer.play("checkpoint")
 	
 func _physics_process(delta: float) -> void:
 	if dead: return
@@ -60,6 +65,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y += jump_strength
 		
 	velocity.y -= 9.8 * delta#gravity
+	
+	if ( ray_cast_3d.is_colliding() and ray_cast_3d.get_collider() != null 
+		and (ray_cast_3d.get_collider().is_in_group('uipop'))):
+			ray_cast_3d.get_collider().showUI()
+	else:
+		Director.emit_signal("hideUI")
+	
 	if ray_cast_3d.is_colliding():
 		var raycast_col = ray_cast_3d.get_collider()
 		if raycast_col != null:

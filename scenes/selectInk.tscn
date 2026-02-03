@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dxcoeeh61t6q2"]
 
 [ext_resource type="Script" uid="uid://cvnrp5ubk6yvw" path="res://scripts/worldInk.gd" id="1_h61wh"]
+[ext_resource type="PackedScene" uid="uid://cmrfnwqt2fheh" path="res://scenes/ui_popup.tscn" id="2_m1x1e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h61wh"]
 radius = 0.14648438
@@ -8,7 +9,7 @@ height = 1.2790527
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h61wh"]
 
-[node name="InkWorld" type="StaticBody3D" unique_id=161909703 groups=["interact"]]
+[node name="InkWorld" type="StaticBody3D" unique_id=161909703 groups=["interact", "uipop"]]
 script = ExtResource("1_h61wh")
 ink = Color(0.550564, 0.004807588, 0.4520321, 1)
 
@@ -19,3 +20,5 @@ shape = SubResource("CapsuleShape3D_h61wh")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=132813273]
 radius = 0.1724192
 material = SubResource("StandardMaterial3D_h61wh")
+
+[node name="UI Popup" parent="CSGSphere3D" unique_id=422775410 instance=ExtResource("2_m1x1e")]

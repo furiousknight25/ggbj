@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://c8a3togcklnwy" path="res://scripts/slip_box.gd" id="4_7psac"]
 [ext_resource type="AudioStream" uid="uid://dxqp4ukhk2r2m" path="res://assets/sounds/hurtbomb.wav" id="5_6lbvc"]
 [ext_resource type="AudioStream" uid="uid://b12aoiviuchj1" path="res://assets/sounds/normalbomb.wav" id="6_rf7vr"]
+[ext_resource type="AudioStream" uid="uid://c8aryau0rydfc" path="res://assets/sounds/1stbounce.wav" id="7_yu3gq"]
+[ext_resource type="AudioStream" uid="uid://dxhrmmrapod8c" path="res://assets/sounds/bounce/2stbounce.wav" id="8_01rxd"]
+[ext_resource type="AudioStream" uid="uid://bwvcqm1xg17x6" path="res://assets/sounds/bounce/3stbounce.wav" id="9_5jnag"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7psac"]
 
@@ -151,7 +154,7 @@ collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_7psac")
 freeze = true
 contact_monitor = true
-max_contacts_reported = 4
+max_contacts_reported = 1
 angular_damp = 4.403
 script = ExtResource("1_yox7r")
 
@@ -202,6 +205,26 @@ scale_amount_max = 1.5
 color = Color(0.36931515, 0.00037498667, 0.45254713, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VisionBox" unique_id=1635243750]
+shape = SubResource("SphereShape3D_q3qe2")
+disabled = true
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="VisionBox" unique_id=377273469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2755386, 0, 0)
+shape = SubResource("SphereShape3D_q3qe2")
+disabled = true
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="VisionBox" unique_id=1889461722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1796819, 0, 1.840702)
+shape = SubResource("SphereShape3D_q3qe2")
+disabled = true
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="VisionBox" unique_id=2105066650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8427607, 0, -0.08092499)
+shape = SubResource("SphereShape3D_q3qe2")
+disabled = true
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="VisionBox" unique_id=1191276783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4304427, 0, -2.0394852)
 shape = SubResource("SphereShape3D_q3qe2")
 disabled = true
 
@@ -280,6 +303,18 @@ stream = ExtResource("5_6lbvc")
 
 [node name="visionSound" type="AudioStreamPlayer3D" parent="." unique_id=853100086]
 stream = ExtResource("6_rf7vr")
+
+[node name="1" type="AudioStreamPlayer3D" parent="." unique_id=472336061]
+stream = ExtResource("7_yu3gq")
+volume_db = -10.0
+
+[node name="2" type="AudioStreamPlayer3D" parent="." unique_id=808315771]
+stream = ExtResource("8_01rxd")
+volume_db = -10.0
+
+[node name="3" type="AudioStreamPlayer3D" parent="." unique_id=633597828]
+stream = ExtResource("9_5jnag")
+volume_db = -10.0
 
 [connection signal="timeout" from="Timer" to="." method="explode"]
 [connection signal="finished" from="VisionBox/VisionSmoke" to="VisionBox" method="_on_vision_smoke_finished"]

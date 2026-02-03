@@ -14,7 +14,7 @@ func _on_timer_timeout() -> void:
 		for i in get_overlapping_bodies():
 			if i.has_method("slip"):
 				i.slip()
-				print('slip')
+
 
 func _on_slip_smoke_finished() -> void:
 	collision_shape_3d.disabled = true

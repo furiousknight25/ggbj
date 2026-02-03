@@ -5,6 +5,9 @@ var fullscreen := false
 var textures = []
 const DEAD_PART = preload("res://scenes/dead_part.tscn")
 
+signal hideUI
+signal checkpoint 
+
 var checkPoint = Vector3.ZERO
 
 func _ready() -> void:
@@ -25,9 +28,12 @@ func _process(_delta):
 	if Input.is_action_just_pressed('restart'):
 		get_tree().reload_current_scene()
 
+
 func set_check_point(Vec : Vector3):
 	if Vec != checkPoint:
 		checkPoint = Vec
+		emit_signal("checkpoint")
+		
 		return true
 	else: return false
 
@@ -36,3 +42,5 @@ func dead_part():
 	add_child(dead)
 	dead.emitting = true
 	
+signal graffiti_add(amount)
+signal graffiti_start()

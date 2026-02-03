@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dqjpvmrkrppue" path="res://scripts/lever.gd" id="1_4kwec"]
 [ext_resource type="AudioStream" uid="uid://fir5oq36igg" path="res://assets/sounds/switch.wav" id="2_ncfea"]
+[ext_resource type="PackedScene" uid="uid://cmrfnwqt2fheh" path="res://scenes/ui_popup.tscn" id="3_qxmkn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kwec"]
 size = Vector3(0.55200195, 0.5908203, 0.5452881)
 
-[node name="Lever" type="StaticBody3D" unique_id=246850996 groups=["interact"]]
+[node name="Lever" type="StaticBody3D" unique_id=246850996 groups=["interact", "uipop"]]
 script = ExtResource("1_4kwec")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=819842895]
@@ -32,3 +33,5 @@ shape = SubResource("BoxShape3D_4kwec")
 
 [node name="switch" type="AudioStreamPlayer3D" parent="." unique_id=621840756]
 stream = ExtResource("2_ncfea")
+
+[node name="UI Popup" parent="." unique_id=422775410 instance=ExtResource("3_qxmkn")]

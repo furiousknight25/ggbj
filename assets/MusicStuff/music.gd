@@ -5,6 +5,8 @@ signal current_bar
 signal current_four_bar
 signal current_eight_bar
 
+@onready var check: AudioStreamPlayer = $check
+
 @export var song_list : Dictionary[String, AdaptiveMusic]
 var last_beat_index: int = 0
 var bar_index: int = 0
@@ -16,6 +18,8 @@ var level_shop = 1
 func _ready() -> void:
 	current_song = $OpenYourMind
 	current_song.start()
+	Director.checkpoint.connect(check.play)
+
 
 func the_beg():
 	current_song.start()

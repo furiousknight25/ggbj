@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://if02scy7wgam"]
+
+[ext_resource type="Script" uid="uid://cn145egc24p1j" path="res://scripts/beeper.gd" id="1_secs3"]
+[ext_resource type="AudioStream" uid="uid://cvusoiokj0bet" path="res://assets/sounds/sound(1).wav" id="2_6syr8"]
+
+[node name="Beeper" type="OmniLight3D" unique_id=2108677304]
+light_color = Color(0.8739011, 0, 0.13976654, 1)
+omni_range = 0.8509568
+script = ExtResource("1_secs3")
+
+[node name="ping" type="AudioStreamPlayer3D" parent="." unique_id=452194664]
+stream = ExtResource("2_6syr8")
+volume_db = -25.0
+pitch_scale = 0.28
+max_polyphony = 6
+
+[node name="Timer" type="Timer" parent="." unique_id=378709735]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

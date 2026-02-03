@@ -26,3 +26,6 @@ func interact():
 		close_door()
 	else:
 		open_door()
+
+func showUI():
+	$"UI Popup".fadeIn()

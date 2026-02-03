@@ -5,7 +5,10 @@
 [ext_resource type="Script" uid="uid://btnao07oie8xe" path="res://scripts/visual_chest.gd" id="3_4ra3w"]
 [ext_resource type="Script" uid="uid://cbuvkftwpaojj" path="res://scripts/flame_thrower.gd" id="4_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://bv1qt1uf63ajw" path="res://assets/models/enemy.glb" id="5_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://if02scy7wgam" path="res://scenes/beeper.tscn" id="5_nenq2"]
+[ext_resource type="AudioStream" uid="uid://p760cbji2mln" path="res://assets/models/fire(1).wav" id="6_ipns3"]
 [ext_resource type="AudioStream" uid="uid://d3ttdn2xqrd6m" path="res://assets/sounds/detectedbyenemy.wav" id="6_xwavj"]
+[ext_resource type="AudioStream" uid="uid://swluatflgduk" path="res://assets/sounds/enemydeath.wav" id="8_md484"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_md0e3"]
 
@@ -130,6 +133,13 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.0
 shape = SubResource("CylinderShape3D_nenq2")
 debug_color = Color(0.9938918, 0, 0.237724, 0.41960785)
 
+[node name="Beeper" parent="VisualChest/Vision/FlameThrower" unique_id=2108677304 instance=ExtResource("5_nenq2")]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, 0, 0, 1, 0.14235863, 0.6719056, 0.22035801)
+
+[node name="fire" type="AudioStreamPlayer3D" parent="VisualChest/Vision/FlameThrower" unique_id=1183558102]
+stream = ExtResource("6_ipns3")
+volume_db = -10.0
+
 [node name="enemy2" parent="VisualChest" unique_id=1978078586 instance=ExtResource("5_c4w8v")]
 transform = Transform3D(-4.727071e-09, 0, 0.108142786, 0, 0.108142786, 0, -0.108142786, 0, -4.727071e-09, 0, 0, 0)
 
@@ -138,5 +148,9 @@ transform = Transform3D(-4.727071e-09, 0, 0.108142786, 0, 0.108142786, 0, -0.108
 [node name="detected" type="AudioStreamPlayer3D" parent="." unique_id=302203382]
 stream = ExtResource("6_xwavj")
 volume_db = -15.0
+
+[node name="death" type="AudioStreamPlayer3D" parent="." unique_id=2057624201]
+stream = ExtResource("8_md484")
+volume_db = -10.0
 
 [connection signal="timeout" from="Timer" to="." method="_idle_timer_timeout"]

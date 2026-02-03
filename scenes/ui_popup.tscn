@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cmrfnwqt2fheh"]
+
+[ext_resource type="Script" uid="uid://bj3nehn13m30c" path="res://scripts/ui_popup.gd" id="1_2k1c8"]
+[ext_resource type="Texture2D" uid="uid://desgss134lve8" path="res://assets/pics/mouseer.png" id="1_55qji"]
+
+[node name="UI Popup" type="Node3D" unique_id=422775410]
+script = ExtResource("1_2k1c8")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1577150843]
+transform = Transform3D(0.032776, 0, 0, 0, 0.032776, 0, 0, 0, 0.032776, 0, 0, 0)
+modulate = Color(1, 1, 1, 0)
+billboard = 2
+no_depth_test = true
+texture_filter = 2
+render_priority = 3
+texture = ExtResource("1_55qji")

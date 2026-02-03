@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func init(col : Color):
 	ink = col
-	print(ink)
+	
 	# FIX: Force the material to update right now!
 	update_color()
 
@@ -32,3 +32,7 @@ func _process(delta: float) -> void:
 func interact():
 	player.add_mixture(ink)
 	queue_free()
+
+func showUI():
+	$"CSGSphere3D/UI Popup".fadeIn()
+	

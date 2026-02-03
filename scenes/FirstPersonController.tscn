@@ -8,17 +8,19 @@
 [ext_resource type="Texture2D" uid="uid://bwb08pmgspksi" path="res://assets/pics/download_5.png" id="4_vk7aq"]
 [ext_resource type="Script" uid="uid://i3tabk5ic7tv" path="res://scripts/cursor.gd" id="6_itui2"]
 [ext_resource type="AudioStream" uid="uid://c11w7exk6yvxt" path="res://assets/sounds/interactiveshaking.wav" id="7_7lmeg"]
-[ext_resource type="PackedScene" uid="uid://ivbhlrwj2llc" path="res://scenes/paintInBottle.tscn" id="7_ignvr"]
 [ext_resource type="Texture2D" uid="uid://di6e2o0swsbmv" path="res://assets/pics/spraycan.png" id="8_awanf"]
-[ext_resource type="PackedScene" uid="uid://bbvo0hgxatx2s" path="res://scenes/mixture.tscn" id="8_x6l86"]
 [ext_resource type="Texture2D" uid="uid://c772eff2tswos" path="res://assets/pics/box.png" id="10_awanf"]
 [ext_resource type="AudioStream" uid="uid://duxqx2y75kec6" path="res://assets/sounds/death.wav" id="10_tmpcr"]
+[ext_resource type="Script" uid="uid://byjp3nj787p53" path="res://scripts/shake_holder.gd" id="11_awanf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwjk5"]
 radius = 0.24023438
 height = 1.0419922
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g1ecg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awanf"]
+size = Vector2(529, 312)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0ca4"]
 size = Vector2(203.5, 49)
@@ -34,12 +36,88 @@ height = 166.0
 size = Vector2(189, 105)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hm6li"]
-size = Vector2(430, 440.5)
+size = Vector2(430, 790.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ignvr"]
 size = Vector2(420, 537.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lmeg"]
+size = Vector2(787, 313.625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yrm1"]
+size = Vector2(949, 405.625)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_epali"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dw8s"]
+bg_color = Color(0.17469, 0.183773, 0.167185, 1)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.111197, 0.111197, 0.111197, 1)
+corner_radius_top_right = 1
+shadow_size = 1
+
+[sub_resource type="Animation" id="Animation_dmnf4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-43, -150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_12771"]
+resource_name = "checkpoint"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(0.329877, 4.14106, 1),
+"update": 0,
+"values": [Vector2(-43, -150), Vector2(-43, -79), Vector2(-43, -150)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.435275, 2.37841, 1),
+"update": 0,
+"values": [-0.118103, 0.10022, -0.0677381]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xulo"]
+_data = {
+&"RESET": SubResource("Animation_dmnf4"),
+&"checkpoint": SubResource("Animation_12771")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=1240587925 groups=["player"]]
 collision_layer = 2
@@ -60,6 +138,9 @@ fov = 80.0
 
 [node name="spray" parent="Camera3D" unique_id=2016465519 instance=ExtResource("2_hm6li")]
 transform = Transform3D(-0.12514287, 1.5892198e-15, 1.8896051e-08, -7.3532087e-09, 0.115278944, -0.0486981, -1.7406636e-08, -0.0486981, -0.115278944, 0.44090378, -0.54883087, -0.26448578)
+
+[node name="Cylinder" parent="Camera3D/spray" index="0" unique_id=520666828]
+layers = 2
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=935598511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0066599846, 0)
@@ -113,8 +194,8 @@ texture = ExtResource("4_vk7aq")
 position = Vector2(-7, -4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Smoke Grenade/mix" unique_id=1910814899]
-position = Vector2(161, -18)
-shape = SubResource("RectangleShape2D_s0ca4")
+position = Vector2(148.5, -148)
+shape = SubResource("RectangleShape2D_awanf")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="UI/Smoke Grenade/mix" unique_id=2013178147]
 position = Vector2(167, 337.5)
@@ -171,14 +252,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Paint" parent="UI/Smoke Grenade/mix/TextureRect/PaintHolder" unique_id=950086161 instance=ExtResource("7_ignvr")]
-layout_mode = 2
+[node name="progressmix" type="ProgressBar" parent="UI/Smoke Grenade/mix" unique_id=219839097]
+offset_left = 316.0
+offset_top = 12.0
+offset_right = 335.0
+offset_bottom = 181.05344
+max_value = 3.0
+fill_mode = 3
+show_percentage = false
 
 [node name="mixtures" type="StaticBody2D" parent="UI/Smoke Grenade" unique_id=1122440501]
 position = Vector2(1107, 91)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=953220328]
-position = Vector2(-24, -265.75)
+position = Vector2(-24, -440.75)
 shape = SubResource("RectangleShape2D_hm6li")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=142327075]
@@ -186,29 +273,14 @@ position = Vector2(6, 463)
 shape = SubResource("RectangleShape2D_ignvr")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=1398731251]
-position = Vector2(-241, 76)
+position = Vector2(-326.1875, 51.5)
 rotation = -1.5707964
-shape = SubResource("RectangleShape2D_epali")
+shape = SubResource("RectangleShape2D_7lmeg")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="UI/Smoke Grenade/mixtures" unique_id=1314085647]
-position = Vector2(246, 73)
+position = Vector2(377.1875, 65.5)
 rotation = -1.5707964
-shape = SubResource("RectangleShape2D_epali")
-
-[node name="Mixture" parent="UI/Smoke Grenade/mixtures" unique_id=610547170 instance=ExtResource("8_x6l86")]
-position = Vector2(30, 50)
-
-[node name="Polygon2D" parent="UI/Smoke Grenade/mixtures/Mixture" index="0" unique_id=310575915]
-color = Color(0.18826851, 0.20436963, 1, 1)
-
-[node name="TextureRect" type="TextureRect" parent="UI/Smoke Grenade/mixtures" unique_id=105542742]
-z_index = -6
-offset_left = -307.0
-offset_top = -156.0
-offset_right = 220.0
-offset_bottom = 241.0
-scale = Vector2(1.074232, 1.074232)
-texture = ExtResource("10_awanf")
+shape = SubResource("RectangleShape2D_0yrm1")
 
 [node name="Cursor" type="Area2D" parent="UI" unique_id=132860936]
 collision_layer = 8
@@ -225,10 +297,54 @@ polygon = PackedVector2Array(0, -10, 7, -8, 10, -1, 8, 7, 0, 10, -7, 7, -10, -1,
 [node name="PaintFinalLocation" type="Marker2D" parent="UI" unique_id=1581444937]
 position = Vector2(164, 50)
 
+[node name="TextureRect" type="TextureRect" parent="UI" unique_id=559297208]
+z_index = -8
+layout_mode = 0
+offset_left = 799.0
+offset_top = -97.0
+offset_right = 1266.0
+offset_bottom = 267.0
+scale = Vector2(1.2332478, 1.2332478)
+texture = ExtResource("10_awanf")
+
 [node name="Death" type="AudioStreamPlayer" parent="." unique_id=2037566475]
 stream = ExtResource("10_tmpcr")
 volume_db = -8.0
 
+[node name="ShakeHolder" type="Node2D" parent="." unique_id=722481090]
+position = Vector2(606, -42)
+script = ExtResource("11_awanf")
+
+[node name="ProgressBar" type="ProgressBar" parent="ShakeHolder" unique_id=274503480]
+offset_left = -124.0
+offset_right = 130.0
+offset_bottom = 27.0
+pivot_offset = Vector2(126, 15)
+show_percentage = false
+
+[node name="Node2D" type="Node2D" parent="." unique_id=370595538]
+position = Vector2(659.00006, 234.00002)
+scale = Vector2(2.2066412, 2.2066412)
+
+[node name="CheckPoint" type="RichTextLabel" parent="Node2D" unique_id=450053326]
+z_index = 100
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = -150.0
+offset_right = 52.0
+offset_bottom = -117.0
+grow_horizontal = 2
+pivot_offset = Vector2(40, -1)
+theme_override_colors/default_color = Color(0.462917, 0.65909, 0.584508, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_4dw8s")
+text = "CheckPoint"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/CheckPoint" unique_id=521179976]
+libraries/ = SubResource("AnimationLibrary_0xulo")
+
 [connection signal="body_entered" from="UI/Smoke Grenade/mix/MixLayer" to="UI/Smoke Grenade/mix/TextureRect" method="_on_mix_layer_body_entered"]
 
-[editable path="UI/Smoke Grenade/mixtures/Mixture"]
+[editable path="Camera3D/spray"]

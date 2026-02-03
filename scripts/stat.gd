@@ -10,6 +10,7 @@ var done = false
 var can_paint = false
 func interacting():
 	can_paint = true
+	Director.emit_signal("graffiti_add", paint_meter * 10)
 
 var music_started = false
 func _on_timer_timeout() -> void:
@@ -17,6 +18,7 @@ func _on_timer_timeout() -> void:
 		if can_paint and done == false and music_started == false:
 			music_started = true
 			Music.request_new('bosa')
+			Director.emit_signal('graffiti_start')
 		for i in area_3d.get_overlapping_bodies():
 			if i.is_in_group('enemy'):
 				i.set_chase()
@@ -26,11 +28,12 @@ func _on_timer_timeout() -> void:
 			door.open()
 			Music.request_new('main')
 			$sing.play()
+			Director.emit_signal('graffiti_start')
 		var yp = YELLOWSPRAYPOINT.instantiate()
 		add_child(yp)
 		
 		if yp and player.give_spray():
 			yp.global_position = player.give_spray()
-			#yp.rotation = player.give_normal()
+			#yp.global_transform.basis.x = player.give_normal()
 			
 	can_paint = false

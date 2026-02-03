@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://cylnpdv835t7r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ou4v7"]
+sky_top_color = Color(0.32891196, 0.52138096, 0.71647686, 1)
+sky_horizon_color = Color(0.81474835, 0.57370335, 0.6694291, 1)
+ground_bottom_color = Color(0.12992242, 0.10702764, 0.08126385, 1)
+ground_horizon_color = Color(0.7718081, 0.60556155, 0.6226023, 1)
+
+[sub_resource type="Sky" id="Sky_53hnx"]
+sky_material = SubResource("ProceduralSkyMaterial_ou4v7")
+
+[sub_resource type="Environment" id="Environment_mxqdg"]
+background_mode = 2
+sky = SubResource("Sky_53hnx")
+
+[node name="Lighitng" type="Node3D" unique_id=758100096]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=707314656]
+environment = SubResource("Environment_mxqdg")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=444720262]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -7.5442395, 5.6207943, 3.1269197)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1844040947]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.5442395, 5.6207943, 7.1269197)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=999684546]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.9769621, 5.6207943, -0.34441853)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=187668622]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 8.810823, 5.6207943, -2.6901546)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="." unique_id=1395225391]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 12.441247, 4.9157376, 6.419175)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D14" type="SpotLight3D" parent="." unique_id=1047118455]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7701674, 4.9157376, 6.419175)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D15" type="SpotLight3D" parent="." unique_id=1226694757]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 13.128395, 4.9157376, 0.7547693)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="." unique_id=860236710]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 22.136032, 5.6207933, 2.4773426)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="." unique_id=490651195]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 28.813467, 5.6207933, 2.360221)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="." unique_id=1965946153]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 33.98265, 5.6207933, 1.9065063)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="." unique_id=577960750]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 39.603214, 5.6207933, 2.80966)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="." unique_id=375853567]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 45.002205, 5.6207933, 2.7247238)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D11" type="SpotLight3D" parent="." unique_id=1208229343]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 50.585304, 5.6207933, 3.0360239)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D12" type="SpotLight3D" parent="." unique_id=808964061]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 56.133427, 6.31621, 2.8184705)
+light_energy = 5.947
+spot_range = 12.176788
+
+[node name="SpotLight3D13" type="SpotLight3D" parent="." unique_id=1133611408]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 56.133427, 6.31621, 2.8184705)
+light_energy = 5.947
+spot_range = 12.176788

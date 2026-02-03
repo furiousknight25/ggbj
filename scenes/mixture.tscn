@@ -6,7 +6,7 @@
 [node name="Mixture" type="RigidBody2D" unique_id=610547170]
 collision_layer = 2
 collision_mask = 3
-continuous_cd = 1
+continuous_cd = 2
 script = ExtResource("1_8aa0j")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=310575915]

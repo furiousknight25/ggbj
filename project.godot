@@ -35,6 +35,7 @@ player=""
 interact=""
 SprayWall=""
 enemy=""
+uipop=""
 
 [input]
 

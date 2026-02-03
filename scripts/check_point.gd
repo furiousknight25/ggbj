@@ -4,3 +4,4 @@ extends Area3D
 
 func _on_body_entered(body: Node3D) -> void:
 	Director.set_check_point(marker_3d.global_position)
+	

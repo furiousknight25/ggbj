@@ -42,15 +42,16 @@ func _process(delta: float) -> void:
 				for i in flame_thrower.get_overlapping_bodies():
 					if i.has_method('flame') and can_shoot:
 						can_shoot = false
+						flame_thrower.disabled = false
 						flame_thrower.shoot()
 						await get_tree().create_timer(GDB.cooldown).timeout
 						can_shoot = true
-						
+			flame_thrower.disabled = true
 			navigation_agent_3d.target_position = player.global_position
 			var direction = (navigation_agent_3d.get_next_path_position() - feet.global_position).normalized()
 			feet.apply_torque(direction.cross(Vector3.UP) * -GDB.enemy_speed)
 			#feet.apply_force(direction * 50)
-			
+			$VisualChest/Vision/FlameThrower/Beeper.distance_beep(global_position- player.global_position)
 			var target_pos = player.global_position
 			# FLATTEN IT: Force the target height to match the chest's height
 			target_pos.y = visual_chest.global_position.y 
@@ -89,6 +90,8 @@ func set_state_idle():
 func set_state_dead():
 	cur_state = STATES.DEAD
 	body.toggle_ragdoll(true)
+	await get_tree().create_timer(1.0).timeout
+	$death.play()
 	await get_tree().create_timer(6.0).timeout
 	body.freeze = true
 	feet.freeze = true

@@ -34,10 +34,10 @@ func get_purple_green_components(color: Color):
 	# Green is just the green channel
 	green_level = color.g
 	
-	print("Purple: ", purple_level, " Green: ", green_level)
 
 func explode():
 	freeze = true
+	if purple_level == 0.0 and green_level == 0.0: return
 	# Make sure this node name matches your scene tree
 	Vision_collision_shape_3d.disabled = false 
 	
@@ -56,3 +56,22 @@ func explode():
 func _on_smoke_finished() -> void:
 	await get_tree().create_timer(50.0).timeout
 	queue_free()
+
+var bounce = 4
+var wait = false
+var old_body = null
+func _process(delta: float) -> void:
+	
+	if get_contact_count() > 0 and wait == false and old_body != get_colliding_bodies()[0]:
+		old_body = get_colliding_bodies()[0]
+		wait = true
+		bounce -= 1
+		match bounce:
+			1:
+				$"1".play()
+			2:
+				$"2".play()
+			3:
+				$"3".play()
+		await get_tree().create_timer(.2).timeout
+		wait = false

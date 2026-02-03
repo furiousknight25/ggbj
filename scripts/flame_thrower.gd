@@ -9,3 +9,4 @@ func shoot():
 		if i.has_method('flame') and disabled == false:
 			disabled = true
 			i.flame()
+			#$fire.play()
